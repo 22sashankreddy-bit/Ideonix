@@ -40,4 +40,28 @@ If you have a spark, a problem you want to solve, or a vision waiting to unfold 
 Together, let’s build a world where ideas don’t just stay dreams, but transform into reality.
 
 Ideonix: Built with passion, by developers, for developers.
+
+How Users Will Access Ideonix
+Website URL
+
+Users can access the Ideonix platform directly through its live website URL:
+https://22sashankreddy-bit.github.io/Ideonix
+
+This link leads to the fully functional web application, where users can explore ideas, submit their own innovations, browse problems, and utilize all the platform features.
+
+GitHub Repository
+
+The complete source code for Ideonix is publicly available on GitHub at:
+https://github.com/22sashankreddy-bit/Ideonix
+
+This repository includes all frontend and backend code, enabling developers to review, contribute, or fork the project for their own use.
+
+Hosting Platform
+
+Ideonix is currently hosted on GitHub Pages, a reliable and free static site hosting service integrated with GitHub. This allows for seamless deployment and automatic updates whenever the repository is changed, providing users with the latest version instantly.
+
+Future Deployment Plans
+
+Looking ahead, there are plans to expand Ideonix’s accessibility by developing a mobile application version of the platform. This app will be submitted to major app distribution stores such as the Google Play Store and Apple App Store. The mobile app will provide an optimized experience for users on smartphones and tablets, enabling easier idea submission and interaction on the go.
+
 To view the video and presentation click view raw
