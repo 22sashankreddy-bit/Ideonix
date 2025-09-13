@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ideonix - Transform Ideas</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <meta
+      name="description"
+      content="Ideonix – Where ideas transform into reality. Join a community of creators and innovators today."
+    />
+    <style>
+      /* Video styling to fit inside hero */
+      .hero-video {
+        width: 100%;
+        height: 100%;
+        max-height: 700px;
+        object-fit: cover;
+        display: block;
+        margin: 0 auto 20px auto;
+        border-radius: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar Section -->
+    <nav class="navbar">
+      <div class="logo">
+        <i class="fas fa-lightbulb"></i> <span>&ensp;Ideonix &ensp; </span
+        ><small>  Ideas & Innovation</small>
+      
+      <div class="hamburger" id="hamburger" aria-label="Toggle menu">
+        &#9776;
+      </div>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="aboutus.html">About Us</a></li>
+        <li><a href="signup.html" class="sign-in-btn">Sign Up/Login</a></li>
+      </ul>
+    </nav>
+    <!-- Main Section -->
+    <section class="main-section">
+      <!-- Hero Section -->
+      <section class="hero-section" id="home">
+        <!-- Insert the video here -->
+        <video class="hero-video" autoplay muted loop playsinline>
+          <source src="GET READY!.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <h1>
+          Where Ideas <span class="highlight">Transform</span> Into Reality
+        </h1>
+        <p>
+          Join a global community of innovators, entrepreneurs, and creators.
+          Share your ideas, collaborate with others, and turn vision into
+          impact.
+        </p>
+        <div class="cta-buttons">
+          <a href="signup.html">
+            <button class="join-btn">Join Ideonix</button>
+          </a>
+          <button
+            class="secondary-btn"
+            onclick="document.getElementById('features').scrollIntoView({ behavior: 'smooth' })"
+          >
+            Learn More
+          </button>
+        </div>
+      </section>
+      <!-- Feature Boxes Section -->
+      <section class="feature-section" id="features">
+        <div class="feature-card">
+          <i class="icon" aria-label="Lightbulb">💡</i>
+          <h3>Innovation Hub</h3>
+          <p>Transform ideas into reality</p>
+        </div>
+        <div class="feature-card">
+          <i class="icon">📈</i>
+          <h3>Growth</h3>
+          <p>Learn and grow together</p>
+        </div>
+        <div class="feature-card">
+          <i class="icon">👥</i>
+          <h3>Community</h3>
+          <p>Connect with like-minded developers</p>
+        </div>
+        <div class="feature-card">
+          <i class="icon">🏆</i>
+          <h3>Recognition</h3>
+          <p>Get recognized for great ideas</p>
+        </div>
+      </section>
+      <!-- Share Ideas Section -->
+      <section class="share-ideas" id="about">
+        <h1>Share Ideas. <span>Shape the Future.</span></h1>
+        <p>
+          Join a vibrant community of innovators, creators, and problem-solvers.
+          Submit your ideas, collaborate on solutions, and turn concepts into
+          reality through the power of collective intelligence.
+        </p>
+        <div class="cta-buttons">
+          <a href="submit.html">
+            <button class="join-btn">submit your ideas</button>
+          </a>
+          <a href="#explore">
+            <button class="join-btn">explore ideas</button>
+          </a>
+        </div>
+      </section>
+    </section>
+    <footer style="text-align: center; padding: 20px; color: #cbd5e1">
+      © 2025 Ideonix. All rights reserved.
+    </footer>
+    <script>
+      // Hamburger menu functionality
+      document
+        .getElementById("hamburger")
+        .addEventListener("click", function () {
+          document.getElementById("nav-links").classList.toggle("active");
+        });
+      // Assume user is not logged in
+      const isLoggedIn = false;
+      document
+        .getElementById("explore-link")
+        .addEventListener("click", function (event) {
+          if (!isLoggedIn) {
+            event.preventDefault(); // Stop default action (e.g., scrolling to #explore)
+            alert("Please log in first.");
+          }
+        });
+    </script>
+  </body>
+</html>

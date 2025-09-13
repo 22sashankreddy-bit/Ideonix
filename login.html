@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Log In</title>
+    <link rel="stylesheet" href="login.css" />
+  </head>
+  <body>
+    <!-- Background Video -->
+    <video class="bg-video" autoplay muted loop>
+      <source
+        src="https://freestockfootagearchive.com/wp-content/uploads/2020/07/Free-Motion-Background-Loop-Swirl.mp4"
+        type="video/mp4"
+      />
+      Your browser does not support the video tag.
+    </video>
+    <div class="video-overlay"></div>
+    <!-- Navbar Section -->
+    <nav class="navbar">
+      <div class="logo">💡 <span>Ideonix</span></div>
+      <div class="hamburger" id="hamburger" aria-label="Toggle menu">
+        &#9776;
+      </div>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="signup.html">Sign Up</a></li>
+        <li><a href="login.html">Log In</a></li>
+      </ul>
+    </nav>
+
+    <!-- Log In Form Section -->
+    <div class="form-container">
+      <h1>🔐 Log In</h1>
+      <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
+
+      <input type="email" id="email" placeholder="Email" />
+      <input type="password" id="password" placeholder="Password" />
+      <button id="login-btn">Log In</button>
+
+      <div id="status" style="margin-top: 20px"></div>
+    </div>
+
+    <!-- Footer -->
+    <footer>© 2025 Ideonix. All rights reserved.</footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="login.js"></script>
+
+    <script>
+      // Hamburger menu functionality
+      document
+        .getElementById("hamburger")
+        .addEventListener("click", function () {
+          document.getElementById("nav-links").classList.toggle("active");
+        });
+    </script>
+  </body>
+</html>

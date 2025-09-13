@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ideonix Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css" />
+    <script src="dashboard.js"></script>
+
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="dashboard-navbar">
+      <div class="logo">
+        <i class="fas fa-lightbulb"></i> <span>Ideonix</span
+        ><small> Ideas & Innovation</small>
+      </div>
+      <div class="hamburger" id="hamburger">&#9776;</div>
+      <ul class="nav-links" id="nav-links">
+        <li>
+          <a href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+        </li>
+        <li>
+          <a href="explore.html"
+            ><i class="fas fa-lightbulb"></i> Explore Ideas</a
+          >
+        </li>
+        <li>
+          <a href="submit.html"
+            ><i class="fas fa-plus-circle"></i> Submit Idea</a
+          >
+        </li>
+        <li>
+          <a href="problem.html"
+            ><i class="fas fa-exclamation-triangle"></i> Submit Problem</a
+          >
+        </li>
+        <li>
+          <a href="about.html"
+            ><i class="fa-notdog-duo fa-solid fa-circle-info"></i> About Us</a
+          >
+        </li>
+        <li>
+          <a href="ranking.html"><i class="fas fa-trophy"></i> Rankings</a>
+        </li>
+        <li>
+          <a href="profile.html"><i class="fas fa-user"></i> Profile</a>
+        </li>
+        <li>
+          <button class="logout-link" onclick="handleLogout()">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </button>
+        </li>
+      </ul>
+    </nav>
+    <style>
+        :root {
+            --primary-color: #4a6fa5;
+            --secondary-color: #166088;
+            --accent-color: #4ecdc4;
+            --text-color: #333;
+            --light-bg: #f8f9fa;
+            --white: #ffffff;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            padding-top: 50px;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .search-container {
+            margin: 2rem 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-box {
+            width: 100%;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 45px 12px 15px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .search-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.3);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-color);
+        }
+
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .book-card {
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .book-header {
+            padding: 1.2rem;
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .book-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.3rem;
+            font-weight: 600;
+        }
+
+        .book-author {
+            font-size: 1rem;
+            opacity: 0.9;
+            font-style: italic;
+        }
+
+        .book-description {
+            padding: 1.2rem;
+            flex-grow: 1;
+        }
+
+        .book-link-container {
+            padding: 0.8rem 1.2rem;
+            background-color: var(--accent-color);
+            text-align: center;
+        }
+
+        .book-link {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .book-link:hover {
+            background-color: #3db8b0;
+        }
+
+        .link-icon {
+            margin-right: 8px;
+        }
+
+        .link-not-available {
+            color: #fff;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.7;
+            cursor: default;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            font-size: 1.2rem;
+            color: #666;
+            display: none;
+        }
+
+        footer {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .books-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Book Resources Explorer</h1>
+            <p class="subtitle">Discover valuable books to enhance your knowledge and skills</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" class="search-input" id="searchInput" placeholder="Search by title, author, or keyword...">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+        </div>
+
+        <div class="books-grid" id="booksGrid">
+            <!-- Book 1 -->
+            <div class="book-card">
+                <div class="book-header">
+                    <h3 class="book-title">Atomic Habits</h3>
+                    <p class="book-author">James Clear</p>
+                </div>
+                <div class="book-description">
+                    <p>A practical guide to building good habits and breaking bad ones with tiny changes.</p>
+                </div>
+                <div class="book-link-container">
+                    <a href="https://dn790008.ca.archive.org/0/items/atomic-habits-original/Atomic%20Habits%20Original.pdf" class="book-link" target="_blank">
+                        <i class="fas fa-book-open link-icon"></i> View Book
+                    </a>
+                </div>
+            </div>
+
+            <!-- Book 2 -->
+            <div class="book-card">
+                <div class="book-header">
+                    <h3 class="book-title">Deep Work</h3>
+                    <p class="book-author">Cal Newport</p>
+                </div>
+                <div class="book-description">
+                    <p>Learn how to focus intensely in a distracted world and produce your best work.</p>
+                </div>
+                <div class="book-link-container">
+                    <a href="https://www.bookdio.org/_files/ugd/ef8af1_b95509ae506d4167950bf5ee4e2daa98.pdf" class="book-link" target="_blank">
+                        <i class="fas fa-book-open link-icon"></i> View Book
+                    </a>
+                </div>
+            </div>
+
+            <!-- Book 3 -->
+            <div class="book-card">
+                <div class="book-header">
+                    <h3 class="book-title">Mindset: The New Psychology of Success</h3>
+                    <p class="book-author">Carol S. Dweck</p>
+                </div>
+                <div class="book-description">
+                    <p>Explains fixed vs. growth mindset and how adopting the latter transforms learning and life.</p>
+                </div>
+                <div class="book-link-container">
+                    <div class="link-not-available">
+                        <i class="fas fa-book-open link-icon"></i> Link not available
+                    </div>
+                </div>
+            </div>
+
+            <!-- Book 4 -->
+            <div class="book-card">
+                <div class="book-header">
+                    <h3 class="book-title">The 7 Habits of Highly Effective People</h3>
+                    <p class="book-author">Stephen R. Covey</p>
+                </div>
+                <div class="book-description">
+                    <p>Timeless principles of effectiveness, leadership, and self-management.</p>
+                </div>
+                <div class="book-link-container">
+                    <a href="https://ia600200.us.archive.org/19/items/SevenHabits/CoveyStephen-TheSevenHabitsOfHighlyEffectivePeople.pdf" class="book-link" target="_blank">
+                        <i class="fas fa-book-open link-icon"></i> View Book
+                    </a>
+                </div>
+            </div>
+
+            <!-- Book 5 -->
+            <div class="book-card">
+                <div class="book-header">
+                    <h3 class="book-title">Make It Stick: The Science of Successful Learning</h3>
+                    <p class="book-author">Peter C. Brown</p>
+                </div>
+                <div class="book-description">
+                    <p>Research-backed techniques to learn faster and remember longer—perfect for exams.</p>
+                </div>
+                <div class="book-link-container">
+                    <a href="https://books.google.co.in/books?id=oneWAwAAQBAJ&printsec=frontcover#v=onepage&q&f=false" class="book-link" target="_blank">
+                        <i class="fas fa-book-open link-icon"></i> View Book
+                    </a>
+                </div>
+            </div>
+
+            <!-- Book 6 -->
+            <div class="book-card">
+                <div class="book-header">
+                    <h3 class="book-title">Grit: The Power of Passion and Perseverance</h3>
+                    <p class="book-author">Angela Duckworth</p>
+                </div>
+                <div class="book-description">
+                    <p>Shows why perseverance beats talent and how to build grit in your own life.</p>
+                </div>
+                <div class="book-link-container">
+                    <a href="https://www.perlego.com/ereader/1391883" class="book-link" target="_blank">
+                        <i class="fas fa-book-open link-icon"></i> View Book
+                    </a>
+                </div>
+            </div>
+
+            <!-- Book 7 -->
+            <div class="book-card">
+                <div class="book-header">
+                    <h3 class="book-title">Sapiens: A Brief History of Humankind</h3>
+                    <p class="book-author">Yuval Noah Harari</p>
+                </div>
+                <div class="book-description">
+                    <p>A sweeping look at how humans evolved and built societies, cultures, and economies.</p>
+                </div>
+                <div class="book-link-container">
+                    <a href="https://ia802908.us.archive.org/8/items/spqr-a-history-of-ancient-rome/Sapiens-%20A%20Brief%20History%20of%20Humankind.pdf" class="book-link" target="_blank">
+                        <i class="fas fa-book-open link-icon"></i> View Book
+                    </a>
+                </div>
+            </div>
+
+            <!-- Book 8 -->
+            <div class="book-card">
+                <div class="book-header">
+                    <h3 class="book-title">Man's Search for Meaning</h3>
+                    <p class="book-author">Viktor E. Frankl</p>
+                </div>
+                <div class="book-description">
+                    <p>A moving memoir and guide to finding purpose, even in adversity.</p>
+                </div>
+                <div class="book-link-container">
+                    <a href="https://dn720001.ca.archive.org/0/items/viktor-emil-frankl-mans-search-for-meaning/Viktor-Emil-Frankl-Mans-Search-for-Meaning.pdf" class="book-link" target="_blank">
+                        <i class="fas fa-book-open link-icon"></i> View Book
+                    </a>
+                </div>
+            </div>
+
+            <!-- Book 9 -->
+            <div class="book-card">
+                <div class="book-header">
+                    <h3 class="book-title">Thinking, Fast and Slow</h3>
+                    <p class="book-author">Daniel Kahneman</p>
+                </div>
+                <div class="book-description">
+                    <p>How our brains make decisions—fast intuitive vs. slow analytical thinking.</p>
+                </div>
+                <div class="book-link-container">
+                    <a href="https://www.bookdio.org/_files/ugd/43cb27_41956ca859ac4fb39cff28d9c11e5995.pdf" class="book-link" target="_blank">
+                        <i class="fas fa-book-open link-icon"></i> View Book
+                    </a>
+                </div>
+            </div>
+
+            <!-- Book 10 -->
+            <div class="book-card">
+                <div class="book-header">
+                    <h3 class="book-title">Factfulness</h3>
+                    <p class="book-author">Hans Rosling</p>
+                </div>
+                <div class="book-description">
+                    <p>Teaches you to see the world based on facts, not fear or misconceptions.</p>
+                </div>
+                <div class="book-link-container">
+                    <a href="https://www.bookdio.org/_files/ugd/ef8af1_ddb2cdfbde6d455aac18bddd55119554.pdf" class="book-link" target="_blank">
+                        <i class="fas fa-book-open link-icon"></i> View Book
+                    </a>
+                </div>
+            </div>
+
+            <!-- Book 11 -->
+            <div class="book-card">
+                <div class="book-header">
+                    <h3 class="book-title">The Psychology of Money (Hindi)</h3>
+                    <p class="book-author">Morgan Housel</p>
+                </div>
+                <div class="book-description">
+                    <p>Smart, simple lessons about money, behavior, and making better financial choices (Hindi version).</p>
+                </div>
+                <div class="book-link-container">
+                    <a href="https://www.bookdio.org/_files/ugd/43cb27_839c66f3fd204c1f9af9808bc7bccbe0.pdf" class="book-link" target="_blank">
+                        <i class="fas fa-book-open link-icon"></i> View Book
+                    </a>
+                </div>
+            </div>
+
+            <!-- Book 12 -->
+            <div class="book-card">
+                <div class="book-header">
+                    <h3 class="book-title">The Art of Learning</h3>
+                    <p class="book-author">Josh Waitzkin</p>
+                </div>
+                <div class="book-description">
+                    <p>A roadmap to mastering any skill through deep focus and deliberate practice.</p>
+                </div>
+                <div class="book-link-container">
+                    <a href="https://www.bookdio.org/_files/ugd/43cb27_039ddb9264364d41afabfd5990ea35b6.pdf" class="book-link" target="_blank">
+                        <i class="fas fa-book-open link-icon"></i> View Book
+                    </a>
+                </div>
+            </div>
+
+            <!-- Book 13 -->
+            <div class="book-card">
+                <div class="book-header">
+                    <h3 class="book-title">Originals: How Non-Conformists Move the World</h3>
+                    <p class="book-author">Adam Grant</p>
+                </div>
+                <div class="book-description">
+                    <p>How to champion new ideas and stand out while staying authentic.</p>
+                </div>
+                <div class="book-link-container">
+                    <div class="link-not-available">
+                        <i class="fas fa-book-open link-icon"></i> Link not available
+                    </div>
+                </div>
+            </div>
+
+            <!-- Book 14 -->
+            <div class="book-card">
+                <div class="book-header">
+                    <h3 class="book-title">How to Win Friends and Influence People</h3>
+                    <p class="book-author">Dale Carnegie</p>
+                </div>
+                <div class="book-description">
+                    <p>Classic guide to communication, persuasion, and building lasting relationships.</p>
+                </div>
+                <div class="book-link-container">
+                    <a href="https://www.bookdio.org/_files/ugd/43cb27_03d1212ac0784dd39b09059d7692a7c5.pdf" class="book-link" target="_blank">
+                        <i class="fas fa-book-open link-icon"></i> View Book
+                    </a>
+                </div>
+            </div>
+
+            <!-- Book 16 -->
+            <div class="book-card">
+                <div class="book-header">
+                    <h3 class="book-title">A Short History of Nearly Everything</h3>
+                    <p class="book-author">Bill Bryson</p>
+                </div>
+                <div class="book-description">
+                    <p>A fun, engaging tour of science—how our universe and life came to be explained.</p>
+                </div>
+                <div class="book-link-container">
+                    <a href="https://www.bookdio.org/_files/ugd/ef8af1_233b81be00e7498fa31bfa6733ed287d.pdf" class="book-link" target="_blank">
+                        <i class="fas fa-book-open link-icon"></i> View Book
+                    </a>
+                </div>
+            </div>
+
+            <!-- Book 18 -->
+            <div class="book-card">
+                <div class="book-header">
+                    <h3 class="book-title">Educated</h3>
+                    <p class="book-author">Tara Westover</p>
+                </div>
+                <div class="book-description">
+                    <p>Memoir of growing up without formal schooling and fighting to gain an education—deeply inspiring.</p>
+                </div>
+                <div class="book-link-container">
+                    <a href="https://www.bookdio.org/_files/ugd/43cb27_9576e74623574aa9a14e6e799ac2df10.pdf" class="book-link" target="_blank">
+                        <i class="fas fa-book-open link-icon"></i> View Book
+                    </a>
+                </div>
+            </div>
+
+            <!-- Book 19 -->
+            <div class="book-card">
+                <div class="book-header">
+                    <h3 class="book-title">Flow: The Psychology of Optimal Experience</h3>
+                    <p class="book-author">Mihaly Csikszentmihalyi</p>
+                </div>
+                <div class="book-description">
+                    <p>How to enter a state of deep focus and joy, ideal for studying or working.</p>
+                </div>
+                <div class="book-link-container">
+                    <a href="https://www.bookdio.org/_files/ugd/ef8af1_932494e678454ec7ab1d077b8b573199.pdf" class="book-link" target="_blank">
+                        <i class="fas fa-book-open link-icon"></i> View Book
+                    </a>
+                </div>
+            </div>
+            
+
+            <!-- Book 20 -->
+            <div class="book-card">
+                <div class="book-header">
+                    <h3 class="book-title">The Checklist Manifesto</h3>
+                    <p class="book-author">Atul Gawande</p>
+                </div>
+                <div class="book-description">
+                    <p>Simple but powerful ways to avoid mistakes and be more organized and effective.</p>
+                </div>
+                <div class="book-link-container">
+                    <div class="link-not-available">
+                        <i class="fas fa-book-open link-icon"></i> Link not available
+                    </div>
+                </div>
+            </div>
+            -- Book 21 -->
+            <div class="book-card">
+                <div class="book-header">
+                    <h3 class="book-title">The Lean Startup</h3>
+                    <p class="book-author">Eric Ries</p>
+                </div>
+                <div class="book-description">
+                    <p>The gold standard for testing and launching ideas quickly with minimal waste.</p>
+                </div>
+                <div class="book-link-container">
+                    <div class="link-not-available">
+                        <i class="fas fa-book-open link-icon"></i> Link not available
+                    </div>
+                </div>
+            </div>
+
+            <!-- Book 22 -->
+            <div class="book-card">
+                <div class="book-header">
+                    <h3 class="book-title">Zero to One</h3>
+                    <p class="book-author">Peter Thiel with Blake Masters</p>
+                </div>
+                <div class="book-description">
+                    <p>Teaches how to create breakthrough companies rather than copy existing ones.</p>
+                </div>
+                <div class="book-link-container">
+                    <a href="https://www.bookdio.org/_files/ugd/43cb27_c3dcbb80f6cf49629e4b05afe1f9e98e.pdf" class="book-link" target="_blank">
+                        <i class="fas fa-book-open link-icon"></i> View Book
+                    </a>
+                </div>
+            </div>
+
+            <!-- Book 23 -->
+            <div class="book-card">
+                <div class="book-header">
+                    <h3 class="book-title">The $100 Startup</h3>
+                    <p class="book-author">Chris Guillebeau</p>
+                </div>
+                <div class="book-description">
+                    <p>Real-world case studies of people who built small businesses on shoestring budgets.</p>
+                </div>
+                <div class="book-link-container">
+                    <div class="link-not-available">
+                        <i class="fas fa-book-open link-icon"></i> Link not available
+                    </div>
+                </div>
+            </div>
+
+            <!-- Book 24 -->
+            <div class="book-card">
+                <div class="book-header">
+                    <h3 class="book-title">Start with Why</h3>
+                    <p class="book-author">Simon Sinek</p>
+                </div>
+                <div class="book-description">
+                    <p>How defining your "why" drives loyalty, leadership, and long-term success.</p>
+                </div>
+                <div class="book-link-container">
+                    <div class="link-not-available">
+                        <i class="fas fa-book-open link-icon"></i> Link not available
+                    </div>
+                </div>
+            </div>
+
+            <!-- Book 25 -->
+            <div class="book-card">
+                <div class="book-header">
+                    <h3 class="book-title">The Hard Thing About Hard Things</h3>
+                    <p class="book-author">Ben Horowitz</p>
+                </div>
+                <div class="book-description">
+                    <p>Honest lessons from running and scaling startups—managing chaos and crises.</p>
+                </div>
+                <div class="book-link-container">
+                    <a href="https://www.bookdio.org/_files/ugd/ef8af1_e9f4aff57fac4221b7cee617b2e76907.pdf" class="book-link" target="_blank">
+                        <i class="fas fa-book-open link-icon"></i> View Book
+                    </a>
+                </div>
+            </div>
+
+            <!-- Book 26 -->
+            <div class="book-card">
+                <div class="book-header">
+                    <h3 class="book-title">Rework</h3>
+                    <p class="book-author">Jason Fried & David Heinemeier Hansson</p>
+                </div>
+                <div class="book-description">
+                    <p>Short, contrarian tips on running a simpler, more productive business.</p>
+                </div>
+                <div class="book-link-container">
+                    <div class="link-not-available">
+                        <i class="fas fa-book-open link-icon"></i> Link not available
+                    </div>
+                </div>
+            </div>
+
+            <!-- Book 27 -->
+            <div class="book-card">
+                <div class="book-header">
+                    <h3 class="book-title">Founders at Work</h3>
+                    <p class="book-author">Jessica Livingston</p>
+                </div>
+                <div class="book-description">
+                    <p>Interviews with startup founders (Apple, PayPal, Hotmail) sharing their early struggles.</p>
+                </div>
+                <div class="book-link-container">
+                    <div class="link-not-available">
+                        <i class="fas fa-book-open link-icon"></i> Link not available
+                    </div>
+                </div>
+            </div>
+
+            <!-- Book 28 -->
+            <div class="book-card">
+                <div class="book-header">
+                    <h3 class="book-title">The E-Myth Revisited</h3>
+                    <p class="book-author">Michael E. Gerber</p>
+                </div>
+                <div class="book-description">
+                    <p>Why most small businesses fail and how to build scalable systems.</p>
+                </div>
+                <div class="book-link-container">
+                    <div class="link-not-available">
+                        <i class="fas fa-book-open link-icon"></i> Link not available
+                    </div>
+                </div>
+            </div>
+
+            <!-- Book 29 -->
+            <div class="book-card">
+                <div class="book-header">
+                    <h3 class="book-title">Purple Cow</h3>
+                    <p class="book-author">Seth Godin</p>
+                </div>
+                <div class="book-description">
+                    <p>How to make your product or service stand out in a crowded market.</p>
+                </div>
+                <div class="book-link-container">
+                    <div class="link-not-available">
+                        <i class="fas fa-book-open link-icon"></i> Link not available
+                    </div>
+                </div>
+            </div>
+
+            <!-- Book 30 -->
+            <div class="book-card">
+                <div class="book-header">
+                    <h3 class="book-title">Delivering Happiness</h3>
+                    <p class="book-author">Tony Hsieh</p>
+                </div>
+                <div class="book-description">
+                    <p>The Zappos story—building company culture and customer service as a competitive edge.</p>
+                </div>
+                <div class="book-link-container">
+                    <div class="link-not-available">
+                        <i class="fas fa-book-open link-icon"></i> Link not available
+                    </div>
+                </div>
+            </div>
+
+            <!-- Book 31 -->
+            <div class="book-card">
+                <div class="book-header">
+                    <h3 class="book-title">Good to Great</h3>
+                    <p class="book-author">Jim Collins</p>
+                </div>
+                <div class="book-description">
+                    <p>Research on what makes companies sustain exceptional performance.</p>
+                </div>
+                <div class="book-link-container">
+                    <a href="https://www.bookdio.org/_files/ugd/43cb27_81e1d6f5f09c4833a7c6d75b3473ca4d.pdf" class="book-link" target="_blank">
+                        <i class="fas fa-book-open link-icon"></i> View Book
+                    </a>
+                </div>
+            </div>
+
+            <!-- Book 32 -->
+            <div class="book-card">
+                <div class="book-header">
+                    <h3 class="book-title">The Innovator's Dilemma</h3>
+                    <p class="book-author">Clayton Christensen</p>
+                </div>
+                <div class="book-description">
+                    <p>Classic on disruptive innovation—why great companies fail to adapt and how to avoid it.</p>
+                </div>
+                <div class="book-link-container">
+                    <div class="link-not-available">
+                        <i class="fas fa-book-open link-icon"></i> Link not available
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="no-results" id="noResults">
+            <i class="fas fa-search fa-3x" style="margin-bottom: 1rem; opacity: 0.5;"></i>
+            <p>No books found matching your search criteria.</p>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            const booksGrid = document.getElementById('booksGrid');
+            const noResults = document.getElementById('noResults');
+            const bookCards = document.querySelectorAll('.book-card');
+
+            searchInput.addEventListener('input', function() {
+                const searchTerm = searchInput.value.toLowerCase();
+                let visibleCount = 0;
+
+                bookCards.forEach(card => {
+                    const title = card.querySelector('.book-title').textContent.toLowerCase();
+                    const author = card.querySelector('.book-author').textContent.toLowerCase();
+                    const description = card.querySelector('.book-description').textContent.toLowerCase();
+
+                    if (title.includes(searchTerm) || author.includes(searchTerm) || description.includes(searchTerm)) {
+                        card.style.display = 'flex';
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                // Show/hide no results message
+                if (visibleCount === 0 && searchTerm !== '') {
+                    noResults.style.display = 'block';
+                    booksGrid.style.display = 'none';
+                } else {
+                    noResults.style.display = 'none';
+                    booksGrid.style.display = 'grid';
+                }
+            });
+        });
+    </script>
+    <footer class="footer">
+      <div class="footer-cta">
+        <h2>Ready to Share Your Next Big Idea?</h2>
+        <p>
+          Join thousands of developers and innovators who are building the
+          future, one idea at a time.
+        </p>
+        <div class="footer-buttons">
+          <a href="submit.html" class="btn btn-primary">+ Submit an Idea</a>
+          <a href="feedback.html" class="btn btn-secondary">Feedback</a>
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <div class="footer-section">
+          <h3><i class="fas fa-lightbulb"></i>Ideonix</h3>
+          <p>
+            Empowering developers to share ideas, solve problems, and build the
+            future together.
+          </p>
+        </div>
+
+        <div class="footer-section">
+          <h4>Platform</h4>
+          <ul>
+            <li><a href="explore.html">Explore Ideas</a></li>
+            <li><a href="submit.html">Submit Idea</a></li>
+            <li><a href="ranking.html">Rankings</a></li>
+            <li><a href="problem.html">Submit A Problem</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h4>Community</h4>
+          <ul>
+            <li><a href="report.html">Report a Problem</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="about.html">About Us</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>
+          © 2025 Ideonix Platform. Built with passion by developers, for
+          developers.
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      function handleLogout() {
+        const confirmLogout = confirm("Are you sure you want to logout?");
+        if (confirmLogout) {
+          // Clear session/localStorage (adjust as needed)
+          localStorage.clear();
+          sessionStorage.clear();
+
+          // Redirect to login page
+          window.location.href = "login.html";
+        }
+      }
+    </script>
+
+    <script>
+      document
+        .getElementById("hamburger")
+        .addEventListener("click", function () {
+          document.getElementById("nav-links").classList.toggle("active");
+        });
+    </script>
+  </body>
+</html>
