@@ -1,5 +1,5 @@
 # Ideonix
-Created with CodeSandbox
+https://22sashankreddy-bit.github.io/Ideonix
 
 
 About Ideonix
@@ -133,6 +133,123 @@ Rankings Page → Personal Progress Overview
 Resource Page → Skill Improvement Materials
 
 UX Goals: Minimize user friction, offer immediate feedback, provide intuitive navigation, and support return visits.
+1. Signup / Login Pages (signup.html, login.html)
+
+Simple authentication forms.
+
+Fields: Full Name (Sign Up only), Email, Password.
+
+Buttons: "Sign Up", "Login".
+
+Links between signup/login for easy navigation.
+
+2. Dashboard (dashboard.html)
+
+Central hub after login.
+
+Cards or panels showing:
+
+Number of ideas submitted
+
+Number of problems posted
+
+Current rank
+
+Navigation links to:
+
+Submit Idea
+
+Submit Problem
+
+Explore
+
+Resources
+
+Ranking
+
+Profile
+
+3. Submit Idea Page (submit.html)
+
+Form-based UI:
+
+Title
+
+Description
+
+Tags or Category
+
+(Optional) Image Upload
+
+Submit button with confirmation alert.
+
+Redirects back to dashboard or explore.
+
+4. Submit Problem Page (problem.html)
+
+Similar form layout as idea submission.
+
+Fields for problem description and context.
+
+Submit and return to dashboard.
+
+5. Explore Ideas Page (explore.html)
+
+Displays a list or grid of submitted ideas.
+
+Each card includes:
+
+Title
+
+Author
+
+Brief summary
+
+Tags
+
+Optional: Like, comment, or filter functionality.
+
+6. Ranking Page (ranking.html)
+
+Leaderboard format.
+
+Shows:
+
+Top contributors by rank
+
+Number of submissions
+
+Points system (if implemented)
+
+Highlights current user’s rank.
+
+7. Resources Page (resource.html)
+
+Curated book/resource list for developers.
+
+Each item includes:
+
+Title
+
+Author
+
+Short description
+
+Category (e.g., Startup, Productivity)
+
+Optionally includes cover images and filters.
+
+8. Profile Page (profile.html)
+
+Displays user’s:
+
+Name
+
+Email
+
+List of submitted ideas/problems
+
+Links to edit profile and logout.
 
 7. UI Wireframes
 
