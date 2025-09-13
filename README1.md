@@ -1,6 +1,6 @@
 Ideonix
 
-Live Demo
+Live Demo-https://22sashankreddy-bit.github.io/Ideonix/
 
 About Ideonix
 
@@ -35,7 +35,7 @@ How Users Will Access Ideonix
 Website URL:
 https://22sashankreddy-bit.github.io/Ideonix
 
-Fully functional web application for exploring, submitting ideas, browsing problems, and more.
+Fully functional web application for exploring, submitting ideas, submitting problems, viewing ranking and more.
 
 GitHub Repository:
 https://github.com/22sashankreddy-bit/Ideonix
