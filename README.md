@@ -40,3 +40,4 @@ If you have a spark, a problem you want to solve, or a vision waiting to unfold 
 Together, let’s build a world where ideas don’t just stay dreams, but transform into reality.
 
 Ideonix: Built with passion, by developers, for developers.
+To view the video and presentation click view raw
