@@ -1,6 +1,6 @@
-const SUPABASE_URL = "https://uzaxcjeiwwnunadopkhl.supabase.co";
+const SUPABASE_URL = "https://xarlawzvqwupgxlwadsj.supabase.co";
 const SUPABASE_ANON_KEY =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV6YXhjamVpd3dudW5hZG9wa2hsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTcxNzk1MDMsImV4cCI6MjA3Mjc1NTUwM30.e1y42NHTsn7S5jeOiyLzEdHrHhjBSMLXamA1NdA3hck"; // use full key
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV6YXhjamVpd3dudW5hZG9wa2hsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTcxNzk1MDMsImV4cCI6MjA3Mjc1NTUwM30.e1y42NHTsn7S5jeOiyLzEdHrHhjBSMLXamA1NdA3hck";
 
 const client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -13,7 +13,6 @@ loginBtn.onclick = async () => {
   const email = emailInput.value.trim();
   const password = passwordInput.value;
 
-  // Clear previous messages
   statusDiv.innerHTML = "";
 
   if (!email || !password) {
@@ -27,9 +26,8 @@ loginBtn.onclick = async () => {
     statusDiv.innerHTML = `❌ ${error.message}`;
   } else {
     statusDiv.innerHTML = "✅ Logged in! Redirecting...";
-    // Optionally, redirect to a dashboard page
     setTimeout(() => {
-      window.location.href = "dashboard.html"; // Or any other page
+      window.location.href = "dashboard.html";
     }, 1500);
   }
 };
