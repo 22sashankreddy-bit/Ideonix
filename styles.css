@@ -24,13 +24,13 @@ body {
 
 /* Navbar styling */
 .navbar {
-  display: flex;
-  justify-content: space-between;
+  display: flex; /*property allows the navbar items to be aligned in a row.*/
+  justify-content: space-between; /*ensures that the logo and navigation links are spaced evenly across the navbar.*/
   align-items: center;
   padding: 1rem;
   background-color: #1e1b4b;
   color: white;
-  position: fixed;
+  position: fixed; /*keeps the navbar at the top*/
   top: 0;
   width: 100%;
   z-index: 10;
@@ -125,8 +125,8 @@ nav a:hover {
 
 /* Feature Section */
 .feature-section {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  display: grid;/* property creates a grid layout for the feature cards*/
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /*allows the cards to automatically adjust their size and number based on the available space, making it responsive.*/
   gap: 20px;
   padding: 40px 20px;
   background: linear-gradient(to right, #1e1b4b, #312e81);
