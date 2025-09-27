@@ -269,14 +269,13 @@
     </footer>
 
     <script>
+      /*This function prompts the user for confirmation before logging out. If the user confirms, it clears any stored session data and redirects them to the login page.*/
       function handleLogout() {
         const confirmLogout = confirm("Are you sure you want to logout?");
         if (confirmLogout) {
-          // Clear session/localStorage (adjust as needed)
           localStorage.clear();
-          sessionStorage.clear();
+          sessionStorage.clear(); 
 
-          // Redirect to login page
           window.location.href = "login.html";
         }
       }
@@ -284,11 +283,13 @@
 
     <script>
       document
-        .getElementById("hamburger")
+        .getElementById("hamburger")  
         .addEventListener("click", function () {
-          document.getElementById("nav-links").classList.toggle("active");
+          document.getElementById("nav-links").classList.toggle("active");      
         });
+      /*This snippet adds an event listener to the hamburger menu icon.*/
     </script>
   </body>
 </html>
+
 
