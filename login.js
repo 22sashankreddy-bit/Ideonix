@@ -1,5 +1,5 @@
 const SUPABASE_URL = "https://uzaxcjeiwwnunadopkhl.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhhcmxhd3p2cXd1cGd4bHdhZHNqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY2NTk3MDAsImV4cCI6MjA3MjIzNTcwMH0.rVXD1x25y9ej8EvnXSXXkiGBQOzK6w9z7VrBRW9p4iU";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV6YXhjamVpd3dudW5hZG9wa2hsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTcxNzk1MDMsImV4cCI6MjA3Mjc1NTUwM30.e1y42NHTsn7S5jeOiyLzEdHrHhjBSMLXamA1NdA3hck";
 
 const client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -30,6 +30,7 @@ loginBtn.onclick = async () => {
     }, 1500);
   }
 };
+
 
 
 
