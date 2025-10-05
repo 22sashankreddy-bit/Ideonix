@@ -31,7 +31,7 @@ signupBtn.onclick = async () => {
     email,
     password,
     options: {
-      emailRedirectTo: `${window.location.origin}/login.html`,
+      emailRedirectTo: "https://22sashankreddy-bit.github.io/Ideonix/login.html",
     },
   });
 
@@ -49,3 +49,4 @@ signupBtn.onclick = async () => {
     `;
   }
 };
+
