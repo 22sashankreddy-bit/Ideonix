@@ -93,7 +93,7 @@ function generateCertificate(name, ideaTitle) {
     doc.text("has submitted an innovative idea", pageWidth / 2, 125, {
       align: "center",
     });
-    doc.text("to the BroCoders community", pageWidth / 2, 140, {
+    doc.text("to the Ideonix community", pageWidth / 2, 140, {
       align: "center",
     });
 
@@ -123,14 +123,14 @@ function generateCertificate(name, ideaTitle) {
       { align: "center" }
     );
 
-    // Add BroCoders branding at the bottom
+    // Add Ideonix branding at the bottom
     doc.setFontSize(18);
     doc.setTextColor(37, 99, 235);
     doc.setFont("helvetica", "bold");
-    doc.text("BroCoders", pageWidth / 2, pageHeight - 30, { align: "center" });
+    doc.text("Ideonix", pageWidth / 2, pageHeight - 30, { align: "center" });
 
     // Save the PDF
-    const fileName = `${name.replace(/\s+/g, "_")}_BroCoders_Certificate.pdf`;
+    const fileName = `${name.replace(/\s+/g, "_")}_Ideonix_Certificate.pdf`;
     doc.save(fileName);
 
     // Show success message
@@ -245,8 +245,8 @@ function showSuccessModal(name, ideaTitle) {
       // Implement share functionality
       if (navigator.share) {
         navigator.share({
-          title: `I just submitted an idea to BroCoders: ${ideaTitle}`,
-          text: `Check out my idea "${ideaTitle}" on BroCoders!`,
+          title: `I just submitted an idea to Ideonix: ${ideaTitle}`,
+          text: `Check out my idea "${ideaTitle}" on Ideonix!`,
           url: window.location.origin,
         });
       } else {
@@ -376,3 +376,4 @@ function handleLogout() {
     window.location.href = "login.html"; // Adjust if your login page path is different
   }
 }
+
