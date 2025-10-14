@@ -1,8 +1,7 @@
 Ideonix
 
-Live Demo-https://22sashankreddy-bit.github.io/Ideonix/
-Video URl-https://s33.aconvert.com/convert/p3r68-cdx67/wvx0s-7gxro.mp4
-Document-
+Live Demo-https://22sashankreddy-bit.github.io/Ideonix./
+Video URl-[https://s33.aconvert.com/convert/p3r68-cdx67/wvx0s-7gxro.mp4](https://s31.aconvert.com/convert/p3r68-cdx67/bh3jp-fk84o.mp4)
 
 About Ideonix
 
