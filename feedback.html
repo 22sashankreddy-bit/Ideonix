@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Feedback Form</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Inter", sans-serif;
+        background: linear-gradient(135deg, #e0f7fa, #ffffff);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+        overflow-x: hidden;
+      }
+
+      .container {
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        max-width: 600px;
+        width: 100%;
+        opacity: 0;
+        animation: fadeIn 0.8s forwards ease;
+      }
+
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+        }
+      }
+
+      h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 10px;
+        font-weight: 600;
+      }
+
+      .intro {
+        text-align: center;
+        margin-bottom: 25px;
+        color: #555;
+        font-size: 15px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: 600;
+        color: #444;
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        font-size: 15px;
+        background-color: #fdfdfd;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        font-family: "Inter", sans-serif;
+      }
+
+      input:focus,
+      textarea:focus {
+        outline: none;
+        border-color: #4caf50;
+        box-shadow: 0 0 8px 2px rgba(76, 175, 80, 0.4);
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .btn-group {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      @media (min-width: 480px) {
+        .btn-group {
+          flex-direction: row;
+        }
+      }
+
+      button {
+        flex: 1;
+        padding: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        font-family: "Inter", sans-serif;
+        will-change: transform;
+      }
+
+      button:hover {
+        transform: scale(1.05);
+      }
+
+      button[type="submit"] {
+        background-color: #4caf50;
+        color: white;
+      }
+
+      button[type="submit"]:hover {
+        background-color: #43a047;
+      }
+
+      #cancelButton {
+        background-color: #e0e0e0;
+        color: #333;
+      }
+
+      #cancelButton:hover {
+        background-color: #d5d5d5;
+      }
+
+      .message {
+        text-align: center;
+        padding: 12px;
+        margin-top: 10px;
+        border-radius: 5px;
+        display: none;
+        font-weight: 600;
+        font-family: "Inter", sans-serif;
+      }
+
+      .success {
+        background-color: #4caf50;
+        color: white;
+      }
+
+      .error {
+        background-color: #f44336;
+        color: white;
+      }
+
+      .custom-alert {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+        background-color: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        overflow: hidden;
+      }
+
+      .custom-alert.show .custom-alert-box {
+        animation: slideUpFadeIn 0.4s ease forwards;
+      }
+
+      @keyframes slideUpFadeIn {
+        0% {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .custom-alert-box {
+        background: white;
+        padding: 40px 30px;
+        border-radius: 12px;
+        text-align: center;
+        width: 90%;
+        max-width: 400px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      .custom-alert-box p {
+        font-size: 18px;
+        color: #333;
+        margin-bottom: 20px;
+        font-family: "Inter", sans-serif;
+      }
+
+      .custom-alert-box button {
+        padding: 10px 20px;
+        background-color: #4caf50;
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-family: "Inter", sans-serif;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+      }
+
+      .custom-alert-box button:hover {
+        background-color: #45a049;
+        transform: scale(1.05);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Submit Your Feedback</h1>
+      <div class="intro">
+        We value your thoughts! Let us know how we’re doing and how we can
+        improve our services.
+      </div>
+      <form id="feedbackForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" placeholder="Enter your name" required />
+
+        <label for="email">Email:</label>
+        <input
+          type="email"
+          id="email"
+          placeholder="Enter your email"
+          required
+        />
+
+        <label for="message">Message:</label>
+        <textarea
+          id="message"
+          rows="4"
+          placeholder="Enter your feedback"
+          required
+        ></textarea>
+
+        <div class="btn-group">
+          <button type="submit">Submit</button>
+          <button type="button" id="cancelButton">Cancel</button>
+        </div>
+      </form>
+      <div id="responseMessage" class="message"></div>
+    </div>
+
+    <div
+      class="custom-alert"
+      id="customAlert"
+      aria-modal="true"
+      role="dialog"
+      tabindex="-1"
+    >
+      <div class="custom-alert-box">
+        <p>Feedback submitted successfully! Thank you!</p>
+        <button id="goToDashboard">Go to Home page</button>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        if (typeof window.supabase === "undefined") {
+          console.error("Supabase client is not loaded.");
+          alert("There was an issue loading the Supabase client.");
+          return;
+        }
+
+        const supabase = window.supabase.createClient(
+          "https://xarlawzvqwupgxlwadsj.supabase.co",
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhhcmxhd3p2cXd1cGd4bHdhZHNqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY2NTk3MDAsImV4cCI6MjA3MjIzNTcwMH0.rVXD1x25y9ej8EvnXSXXkiGBQOzK6w9z7VrBRW9p4iU"
+        );
+
+        const feedbackForm = document.getElementById("feedbackForm");
+        const responseMessage = document.getElementById("responseMessage");
+        const cancelButton = document.getElementById("cancelButton");
+        const customAlert = document.getElementById("customAlert");
+        const goToDashboard = document.getElementById("goToDashboard");
+
+        feedbackForm.addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const name = document.getElementById("name").value.trim();
+          const email = document.getElementById("email").value.trim();
+          const message = document.getElementById("message").value.trim();
+
+          responseMessage.style.display = "none";
+
+          if (!name || !email || !message) {
+            responseMessage.textContent = "Please fill in all fields.";
+            responseMessage.className = "message error";
+            responseMessage.style.display = "block";
+            return;
+          }
+
+          const { data, error } = await supabase
+            .from("feedbacks")
+            .insert([{ name, email, message }]);
+
+          if (error) {
+            console.error("Error inserting feedback:", error);
+            responseMessage.textContent =
+              "There was an error submitting your feedback. Please try again.";
+            responseMessage.className = "message error";
+            responseMessage.style.display = "block";
+          } else {
+            feedbackForm.reset();
+            customAlert.style.display = "flex";
+            setTimeout(() => {
+              customAlert.classList.add("show");
+            }, 10);
+          }
+        });
+
+        cancelButton.addEventListener("click", () => {
+          window.location.href = "dashboard.html";
+        });
+
+        goToDashboard.addEventListener("click", () => {
+          window.location.href = "dashboard.html";
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,569 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Entrepreneurship Quiz</title>
+    <style>
+      :root {
+        --bg-primary: #0a192f;
+        --bg-secondary: #172a45;
+        --text-primary: #ccd6f6;
+        --text-secondary: #8892b0;
+        --accent: #64ffda;
+        --accent-hover: #4cd9b8;
+        --border-color: #233554;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+
+      .quiz-container {
+        background-color: var(--bg-secondary);
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        padding: 30px 40px;
+        max-width: 700px;
+        width: 100%;
+        border: 1px solid var(--border-color);
+      }
+
+      h1 {
+        text-align: center;
+        font-size: 2.2em;
+        color: var(--text-primary);
+        margin-bottom: 20px;
+      }
+
+      #question-container {
+        margin-bottom: 20px;
+      }
+
+      .question-header {
+        display: flex;
+        justify-content: space-between;
+        color: var(--text-secondary);
+        margin-bottom: 15px;
+      }
+
+      #question-text {
+        font-size: 1.3em;
+        margin-bottom: 25px;
+        line-height: 1.5;
+      }
+
+      #answer-options {
+        list-style: none;
+        padding: 0;
+      }
+
+      .option {
+        background-color: var(--bg-primary);
+        border: 2px solid var(--border-color);
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+      }
+
+      .option:hover {
+        background-color: #1a2f4f;
+        border-color: var(--text-secondary);
+      }
+
+      .option input[type="radio"] {
+        display: none;
+      }
+
+      .option label {
+        cursor: pointer;
+        width: 100%;
+        padding-left: 30px;
+        position: relative;
+      }
+
+      .option label::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        border: 2px solid var(--text-secondary);
+        background-color: transparent;
+        transition: all 0.2s ease;
+      }
+
+      .option input[type="radio"]:checked + label {
+        color: var(--accent);
+      }
+
+      .option input[type="radio"]:checked + label::before {
+        border-color: var(--accent);
+        background-color: var(--accent);
+      }
+
+      .option input[type="radio"]:checked + label::after {
+        content: "";
+        position: absolute;
+        left: 5px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background-color: var(--bg-primary);
+      }
+
+      .buttons {
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+      }
+
+      #next-btn,
+      #restart-btn {
+        background-color: var(--accent);
+        color: var(--bg-primary);
+        border: none;
+        border-radius: 5px;
+        padding: 12px 25px;
+        font-size: 1em;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.2s ease, transform 0.1s ease;
+      }
+
+      #next-btn:hover,
+      #restart-btn:hover {
+        background-color: var(--accent-hover);
+      }
+
+      #next-btn:active,
+      #restart-btn:active {
+        transform: scale(0.98);
+      }
+
+      #results-container {
+        text-align: center;
+        display: none;
+      }
+
+      #score-text {
+        font-size: 1.5em;
+        color: var(--accent);
+        margin-bottom: 10px;
+      }
+
+      #results-message {
+        color: var(--text-secondary);
+        font-size: 1.1em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="quiz-container">
+      <h1>Entrepreneurship Quiz</h1>
+
+      <div id="quiz">
+        <div id="question-container">
+          <div class="question-header">
+            <span id="question-number">Question 1 of 7</span>
+            <span id="timer">Time: 0s</span>
+          </div>
+          <h2 id="question-text">Loading question...</h2>
+          <ul id="answer-options"></ul>
+        </div>
+        <div class="buttons">
+          <button id="next-btn">Next</button>
+        </div>
+      </div>
+
+      <div id="results-container">
+        <h2>Quiz Complete!</h2>
+        <p id="score-text"></p>
+        <p id="results-message"></p>
+        <button id="restart-btn">Restart Quiz</button>
+      </div>
+    </div>
+
+    <script>
+      const quizData = [
+        {
+          question: "What does MVP stand for in startup terminology?",
+          options: [
+            "Most Valuable Product",
+            "Minimum Viable Product",
+            "Market Value Proposition",
+            "Managed Venture Plan",
+          ],
+          correctAnswer: 1,
+        },
+        {
+          question: "Which of the following best describes 'bootstrapping'?",
+          options: [
+            "Using investor funding",
+            "Starting with personal savings",
+            "Government subsidy",
+            "Crowdfunding",
+          ],
+          correctAnswer: 1,
+        },
+        {
+          question:
+            "Who is considered the father of modern entrepreneurship theory?",
+          options: [
+            "Elon Musk",
+            "Joseph Schumpeter",
+            "Peter Drucker",
+            "Jeff Bezos",
+          ],
+          correctAnswer: 1,
+        },
+        {
+          question: "A startup valued at $1 billion or more is known as a:",
+          options: ["Pegasus", "Unicorn", "Centaur", "Phoenix"],
+          correctAnswer: 1,
+        },
+        {
+          question: "Which entrepreneur founded Amazon?",
+          options: [
+            "Bill Gates",
+            "Larry Page",
+            "Jeff Bezos",
+            "Mark Zuckerberg",
+          ],
+          correctAnswer: 2,
+        },
+        {
+          question: "The concept of 'Product-Market Fit' means:",
+          options: [
+            "A product satisfies a strong market demand",
+            "A product is cheaper than competitors",
+            "A company has a marketing plan",
+            "A company has many investors",
+          ],
+          correctAnswer: 0,
+        },
+        {
+          question: "Who founded Tesla and SpaceX?",
+          options: [
+            "Steve Jobs",
+            "Elon Musk",
+            "Sundar Pichai",
+            "Richard Branson",
+          ],
+          correctAnswer: 1,
+        },
+        {
+          question: "What is a 'pivot' in entrepreneurship?",
+          options: [
+            "A major change in business model or strategy",
+            "A marketing strategy",
+            "A product redesign",
+            "An accounting adjustment",
+          ],
+          correctAnswer: 0,
+        },
+        {
+          question: "What is an 'elevator pitch'?",
+          options: [
+            "A short persuasive speech about a business idea",
+            "A long investor meeting",
+            "A marketing campaign",
+            "A pricing strategy",
+          ],
+          correctAnswer: 0,
+        },
+        {
+          question: "Who co-founded Microsoft?",
+          options: [
+            "Bill Gates and Paul Allen",
+            "Larry Page and Sergey Brin",
+            "Steve Jobs and Steve Wozniak",
+            "Jeff Bezos and Andy Jassy",
+          ],
+          correctAnswer: 0,
+        },
+        {
+          question: "What does IPO stand for?",
+          options: [
+            "Initial Private Offer",
+            "Initial Public Offering",
+            "Investment Plan Option",
+            "International Product Order",
+          ],
+          correctAnswer: 1,
+        },
+        {
+          question: "Who is the founder of Virgin Group?",
+          options: [
+            "Elon Musk",
+            "Richard Branson",
+            "Mark Cuban",
+            "Warren Buffett",
+          ],
+          correctAnswer: 1,
+        },
+        {
+          question: "What is a business incubator mainly used for?",
+          options: [
+            "Supporting startups with mentorship and resources",
+            "Producing goods",
+            "Selling patents",
+            "Government regulation",
+          ],
+          correctAnswer: 0,
+        },
+        {
+          question: "What does SWOT stand for?",
+          options: [
+            "Strengths, Weaknesses, Opportunities, Threats",
+            "Sales, Work, Operations, Targets",
+            "Strategy, Workforce, Output, Turnover",
+            "Service, Warranty, Objective, Team",
+          ],
+          correctAnswer: 0,
+        },
+        {
+          question: "Who co-founded Apple Inc. with Steve Jobs?",
+          options: ["Bill Gates", "Steve Wozniak", "Tim Cook", "Jeff Bezos"],
+          correctAnswer: 1,
+        },
+        {
+          question: "What is 'angel investing'?",
+          options: [
+            "Investing in stocks",
+            "Investing in small startup businesses",
+            "Investing in government bonds",
+            "Investing in real estate",
+          ],
+          correctAnswer: 1,
+        },
+        {
+          question: "What does 'bootstrapping' mean in entrepreneurship?",
+          options: [
+            "Funding a business using personal savings",
+            "Borrowing from family or friends",
+            "Raising funds through venture capital",
+            "Seeking government grants",
+          ],
+          correctAnswer: 0,
+        },
+        {
+          question: "What is 'scaling' in business?",
+          options: [
+            "Expanding a business to reach new markets",
+            "Reducing the number of employees",
+            "Cutting costs to improve profitability",
+            "Closing down unprofitable branches",
+          ],
+          correctAnswer: 0,
+        },
+        {
+          question: "What is a 'disruptive innovation'?",
+          options: [
+            "An innovation that improves an existing product",
+            "An innovation that creates a new market and value network",
+            "An innovation that reduces costs without changing the product",
+            "An innovation that disrupts the workforce",
+          ],
+          correctAnswer: 1,
+        },
+        {
+          question:
+            "Which is a key characteristic of a successful entrepreneur?",
+          options: [
+            "Having a degree in business",
+            "A high tolerance for risk",
+            "Having a large social media following",
+            "Being a perfectionist",
+          ],
+          correctAnswer: 1,
+        },
+        {
+          question: "What is a business 'exit strategy'?",
+          options: [
+            "The plan for selling or closing the business",
+            "The plan for expanding the business",
+            "A strategy for marketing the business",
+            "A plan to reduce business expenses",
+          ],
+          correctAnswer: 0,
+        },
+      ];
+
+      const quizContainer = document.getElementById("quiz");
+      const questionContainer = document.getElementById("question-container");
+      const questionNumberEl = document.getElementById("question-number");
+      const questionTextEl = document.getElementById("question-text");
+      const answerOptionsEl = document.getElementById("answer-options");
+      const nextBtn = document.getElementById("next-btn");
+      const resultsContainer = document.getElementById("results-container");
+      const scoreTextEl = document.getElementById("score-text");
+      const resultsMessageEl = document.getElementById("results-message");
+      const restartBtn = document.getElementById("restart-btn");
+      const timerEl = document.getElementById("timer");
+
+      let currentQuestionIndex = 0;
+      let score = 0;
+      let timerInterval;
+      let seconds = 0;
+      let randomizedQuestions = [];
+
+      function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+      }
+
+      function startQuiz() {
+        randomizedQuestions = [...quizData];
+        shuffleArray(randomizedQuestions);
+        randomizedQuestions = randomizedQuestions.slice(0, 7);
+
+        currentQuestionIndex = 0;
+        score = 0;
+        seconds = 0;
+        nextBtn.innerHTML = "Next";
+        resultsContainer.style.display = "none";
+        quizContainer.style.display = "block";
+        startTimer();
+        showQuestion();
+      }
+
+      function startTimer() {
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+          seconds++;
+          timerEl.textContent = `Time: ${seconds}s`;
+          if (seconds >= 70) {
+            clearInterval(timerInterval);
+            showResults();
+          }
+        }, 1000);
+      }
+
+      function showQuestion() {
+        resetState();
+        const currentQuestion = randomizedQuestions[currentQuestionIndex];
+        questionNumberEl.textContent = `Question ${
+          currentQuestionIndex + 1
+        } of ${randomizedQuestions.length}`;
+        questionTextEl.textContent = currentQuestion.question;
+
+        currentQuestion.options.forEach((option, index) => {
+          const optionLi = document.createElement("li");
+          optionLi.classList.add("option");
+
+          const radioInput = document.createElement("input");
+          radioInput.type = "radio";
+          radioInput.name = "answer";
+          radioInput.id = `option${index}`;
+          radioInput.value = index;
+
+          const label = document.createElement("label");
+          label.htmlFor = `option${index}`;
+          label.textContent = option;
+
+          optionLi.appendChild(radioInput);
+          optionLi.appendChild(label);
+          answerOptionsEl.appendChild(optionLi);
+        });
+      }
+
+      function resetState() {
+        nextBtn.style.display = "none";
+        while (answerOptionsEl.firstChild) {
+          answerOptionsEl.removeChild(answerOptionsEl.firstChild);
+        }
+      }
+
+      function selectAnswer() {
+        const selectedOption = document.querySelector(
+          'input[name="answer"]:checked'
+        );
+        if (selectedOption) {
+          const answerIndex = parseInt(selectedOption.value);
+          if (
+            answerIndex ===
+            randomizedQuestions[currentQuestionIndex].correctAnswer
+          ) {
+            score++;
+          }
+          nextBtn.style.display = "block";
+        }
+      }
+
+      function showResults() {
+        clearInterval(timerInterval);
+        quizContainer.style.display = "none";
+        resultsContainer.style.display = "block";
+
+        scoreTextEl.textContent = `You scored ${score} out of ${randomizedQuestions.length}!`;
+
+        let message = "";
+        const percentage = (score / randomizedQuestions.length) * 100;
+        if (percentage >= 80) {
+          message =
+            "🌟 Excellent! You have a strong grasp of entrepreneurship.";
+        } else if (percentage >= 60) {
+          message = "👍 Good job! You're on your way to startup mastery.";
+        } else if (percentage >= 40) {
+          message = "💡 Not bad! Keep learning and exploring.";
+        } else {
+          message = "📘 Keep studying — every entrepreneur starts somewhere!";
+        }
+        resultsMessageEl.textContent = message;
+      }
+
+      function handleNextButton() {
+        const selectedOption = document.querySelector(
+          'input[name="answer"]:checked'
+        );
+        if (!selectedOption) return;
+        const answerIndex = parseInt(selectedOption.value);
+        if (
+          answerIndex ===
+          randomizedQuestions[currentQuestionIndex].correctAnswer
+        )
+          score++;
+
+        currentQuestionIndex++;
+        if (currentQuestionIndex < randomizedQuestions.length) {
+          showQuestion();
+        } else {
+          showResults();
+        }
+      }
+
+      nextBtn.addEventListener("click", handleNextButton);
+      restartBtn.addEventListener("click", startQuiz);
+      answerOptionsEl.addEventListener("change", () => {
+        nextBtn.style.display = "block";
+        if (currentQuestionIndex === randomizedQuestions.length - 1)
+          nextBtn.innerHTML = "Submit";
+      });
+
+      startQuiz();
+    </script>
+  </body>
+</html>

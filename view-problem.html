@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>View Problems | Ideonix</title>
+    <link rel="stylesheet" href="problem.css" />
+    <link rel="stylesheet" href="view-problems.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav class="dashboard-navbar">
+      <div class="logo">
+        <i class="fas fa-lightbulb"></i> <span>Ideonix</span>
+        <small>Ideas & Innovation</small>
+      </div>
+
+      <div class="hamburger" id="hamburger">&#9776;</div>
+
+      <ul class="nav-links" id="nav-links">
+        <!-- Home -->
+        <li>
+          <a href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+        </li>
+
+        <!-- Ideas Dropdown -->
+        <li class="dropdown">
+          <a href="javascript:void(0)" class="dropdown-toggle">
+            <i class="fas fa-lightbulb"></i> Ideas
+            <i class="fas fa-chevron-down"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="explore.html"
+                ><i class="fas fa-search"></i> Explore Ideas</a
+              >
+            </li>
+            <li>
+              <a href="submit.html"
+                ><i class="fas fa-plus-circle"></i> Submit Ideas</a
+              >
+            </li>
+          </ul>
+        </li>
+
+        <!-- Problems Dropdown -->
+        <li class="dropdown">
+          <a href="javascript:void(0)" class="dropdown-toggle">
+            <i class="fas fa-triangle-exclamation"></i> Problems
+            <i class="fas fa-chevron-down"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="problem.html"
+                ><i class="fas fa-plus-circle"></i> Submit Problems</a
+              >
+            </li>
+            <li>
+              <a href="view-problem.html"
+                ><i class="fas fa-eye"></i> View Problems</a
+              >
+            </li>
+          </ul>
+        </li>
+
+        <!-- Profile Dropdown -->
+        <li class="dropdown">
+          <a href="javascript:void(0)" class="dropdown-toggle">
+            <i class="fas fa-user-circle"></i> Profile
+            <i class="fas fa-chevron-down"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="user.html"
+                ><i class="fas fa-id-badge"></i> Your Profile</a
+              >
+            </li>
+            <li>
+              <a href="profile.html"
+                ><i class="fas fa-users"></i> Others’ Profiles</a
+              >
+            </li>
+          </ul>
+        </li>
+
+        <!-- Rankings -->
+        <li>
+          <a href="ranking.html"><i class="fas fa-trophy"></i> Rankings</a>
+        </li>
+
+        <!-- Community Dropdown -->
+        <li class="dropdown">
+          <a href="javascript:void(0)" class="dropdown-toggle">
+            <i class="fas fa-users"></i> Community
+            <i class="fas fa-chevron-down"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="resource.html"><i class="fas fa-book"></i> Resources</a>
+            </li>
+            <li>
+              <a href="about.html"
+                ><i class="fas fa-circle-info"></i> About Us</a
+              >
+            </li>
+            <li>
+              <a href="report.html"
+                ><i class="fas fa-bug"></i> Report a Problem</a
+              >
+            </li>
+            <li>
+              <a href="feedback.html"
+                ><i class="fas fa-comment-dots"></i> Feedback</a
+              >
+            </li>
+            <li>
+              <a href="quiz.html"
+                ><i class="fas fa-question-circle"></i> Quiz</a
+              >
+            </li>
+          </ul>
+        </li>
+
+        <!-- Logout -->
+        <li>
+          <button class="logout-link" onclick="handleLogout()">
+            <i class="fas fa-right-from-bracket"></i> Logout
+          </button>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="container">
+      <div class="header-section">
+        <h2>Submitted Problems</h2>
+        <p class="subtitle">
+          Browse through the challenges identified by our community members.
+        </p>
+      </div>
+
+      <div class="filters">
+        <div class="filter-group">
+          <label for="search-filter">Search:</label>
+          <input
+            type="text"
+            id="search-filter"
+            placeholder="Search problems..."
+          />
+        </div>
+        <div class="filter-group">
+          <button id="show-all-btn" class="btn-primary">
+            <a href="submit.html" style="text-decoration: none; color: white"
+              >Submit Ideas for these problems</a
+            >
+          </button>
+        </div>
+      </div>
+
+      <div class="kanban-board" id="kanban-board">
+        <!-- Kanban columns will be dynamically generated here -->
+        <div class="loading-spinner">
+          <i class="fas fa-spinner fa-spin"></i> Loading problems...
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="footer-cta">
+        <h2>Ready to Share Your Next Big Idea?</h2>
+        <p>
+          Join thousands of developers and innovators who are building the
+          future, one idea at a time.
+        </p>
+        <div class="footer-buttons">
+          <a href="submit.html" class="btn btn-primary1">+ Submit an Idea</a>
+          <a href="feedback.html" class="btn btn-secondary">Feedback</a>
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <div class="footer-section">
+          <h3><i class="fas fa-lightbulb"></i> Ideonix</h3>
+          <p>
+            Empowering developers to share ideas, solve problems, and build the
+            future together.
+          </p>
+        </div>
+
+        <div class="footer-section">
+          <h4>Platform</h4>
+          <ul>
+            <li><a href="explore.html">Explore Ideas</a></li>
+            <li><a href="submit.html">Submit Idea</a></li>
+            <li><a href="ranking.html">Rankings</a></li>
+            <li><a href="problem.html">Submit A Problem</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h4>Community</h4>
+          <ul>
+            <li><a href="report.html">Report a Problem</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="resource.html">Resources</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>
+          © 2025 Ideonix Platform. Built with passion by developers, for
+          developers.
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      function handleLogout() {
+        const confirmLogout = confirm("Are you sure you want to logout?");
+        if (confirmLogout) {
+          localStorage.clear();
+          sessionStorage.clear();
+          window.location.href = "login.html";
+        }
+      }
+    </script>
+    <script>
+      document
+        .getElementById("hamburger")
+        .addEventListener("click", function () {
+          document.getElementById("nav-links").classList.toggle("active");
+        });
+    </script>
+
+    <script type="module">
+      // view-problems.js
+      import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.7/+esm";
+
+      const SUPABASE_URL = "https://xarlawzvqwupgxlwadsj.supabase.co";
+      const SUPABASE_ANON_KEY =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhhcmxhd3p2cXd1cGd4bHdhZHNqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY2NTk3MDAsImV4cCI6MjA3MjIzNTcwMH0.rVXD1x25y9ej8EvnXSXXkiGBQOzK6w9z7VrBRW9p4iU";
+
+      const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+      document.addEventListener("DOMContentLoaded", async () => {
+        const kanbanBoard = document.getElementById("kanban-board");
+        const searchFilter = document.getElementById("search-filter");
+        const showAllBtn = document.getElementById("show-all-btn");
+
+        // Define categories
+        const categories = [
+          { id: "all", name: "All Problems", class: "category-all" },
+          { id: "education", name: "Education", class: "category-education" },
+          {
+            id: "healthcare",
+            name: "Healthcare",
+            class: "category-healthcare",
+          },
+          { id: "finance", name: "Finance", class: "category-finance" },
+          {
+            id: "environment",
+            name: "Environment",
+            class: "category-environment",
+          },
+          {
+            id: "technology",
+            name: "Technology",
+            class: "category-technology",
+          },
+          { id: "other", name: "Other", class: "category-other" },
+        ];
+
+        // Store all problems
+        let allProblems = [];
+
+        // Fetch problems from Supabase
+        async function fetchProblems() {
+          try {
+            kanbanBoard.innerHTML =
+              '<div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i> Loading problems...</div>';
+
+            const { data, error } = await supabase
+              .from("problems")
+              .select("*")
+              .order("created_at", { ascending: false });
+
+            if (error) throw error;
+
+            allProblems = data || [];
+
+            if (allProblems.length === 0) {
+              kanbanBoard.innerHTML =
+                '<div class="no-problems">No problems found. Be the first to submit a problem!</div>';
+              return;
+            }
+
+            renderKanbanBoard(allProblems);
+          } catch (error) {
+            console.error("Error fetching problems:", error);
+            kanbanBoard.innerHTML =
+              '<div class="no-problems">Error loading problems. Please try again later.</div>';
+          }
+        }
+
+        // Render the Kanban board
+        function renderKanbanBoard(problems) {
+          kanbanBoard.innerHTML = "";
+
+          // Group problems by category
+          const problemsByCategory = {
+            all: problems,
+          };
+
+          categories.forEach((category) => {
+            if (category.id !== "all") {
+              problemsByCategory[category.id] = problems.filter(
+                (p) => p.category === category.id
+              );
+            }
+          });
+
+          // Create columns
+          categories.forEach((category) => {
+            const column = document.createElement("div");
+            column.className = "kanban-column";
+            column.dataset.category = category.id;
+
+            const columnHeader = document.createElement("div");
+            columnHeader.className = `column-header ${category.class}`;
+
+            const columnTitle = document.createElement("h3");
+            columnTitle.textContent = category.name;
+
+            const problemCount = document.createElement("span");
+            problemCount.className = "problem-count";
+            problemCount.textContent = problemsByCategory[category.id].length;
+
+            columnHeader.appendChild(columnTitle);
+            columnHeader.appendChild(problemCount);
+
+            const columnContent = document.createElement("div");
+            columnContent.className = "column-content";
+
+            // Add problem cards to the column
+            if (problemsByCategory[category.id].length === 0) {
+              const noProblems = document.createElement("div");
+              noProblems.className = "no-problems";
+              noProblems.textContent = "No problems in this category";
+              columnContent.appendChild(noProblems);
+            } else {
+              problemsByCategory[category.id].forEach((problem) => {
+                const card = createProblemCard(problem);
+                columnContent.appendChild(card);
+              });
+            }
+
+            column.appendChild(columnHeader);
+            column.appendChild(columnContent);
+            kanbanBoard.appendChild(column);
+          });
+        }
+
+        // Create a problem card
+        function createProblemCard(problem) {
+          const card = document.createElement("div");
+          card.className = "problem-card";
+          card.dataset.id = problem.id;
+
+          // Format date
+          const date = new Date(problem.created_at);
+          const formattedDate = date.toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+          });
+
+          // Truncate description for preview
+          const truncatedDescription =
+            problem.description.length > 100
+              ? problem.description.substring(0, 100) + "..."
+              : problem.description;
+
+          card.innerHTML = `
+      <div class="card-header">
+        <h4 class="problem-title">${problem.title}</h4>
+        <span class="problem-category">${problem.category}</span>
+      </div>
+      <div class="card-preview">
+        <p class="problem-audience">
+          <i class="fas fa-users"></i> ${problem.affected_audience}
+        </p>
+        <p class="problem-date">${formattedDate}</p>
+      </div>
+      <div class="card-details">
+        <p class="problem-description">${problem.description}</p>
+        <div class="problem-meta">
+          ${
+            problem.name
+              ? `
+            <div class="meta-item">
+              <i class="fas fa-user"></i>
+              <span>Submitted by: ${problem.name}</span>
+            </div>
+          `
+              : ""
+          }
+          ${
+            problem.file_url
+              ? `
+            <div class="meta-item">
+              <i class="fas fa-paperclip"></i>
+              <a href="${problem.file_url}" target="_blank" class="problem-file">
+                View Attachment
+              </a>
+            </div>
+          `
+              : ""
+          }
+        </div>
+      </div>
+      <div class="card-footer">
+        <button class="expand-btn">
+          View Details <i class="fas fa-chevron-down"></i>
+        </button>
+      </div>
+    `;
+
+          // Add click event to toggle expanded state
+          card.addEventListener("click", function (e) {
+            // Prevent toggle when clicking on links
+            if (e.target.tagName === "A") return;
+
+            this.classList.toggle("expanded");
+          });
+
+          return card;
+        }
+
+        // Filter problems based on search term
+        function filterProblems() {
+          const searchTerm = searchFilter.value.trim().toLowerCase();
+
+          if (!searchTerm) {
+            renderKanbanBoard(allProblems);
+            return;
+          }
+
+          // Filter problems that match the search term
+          const filteredProblems = allProblems.filter((problem) => {
+            return (
+              problem.title.toLowerCase().includes(searchTerm) ||
+              problem.description.toLowerCase().includes(searchTerm) ||
+              problem.affected_audience.toLowerCase().includes(searchTerm) ||
+              (problem.name && problem.name.toLowerCase().includes(searchTerm))
+            );
+          });
+
+          renderKanbanBoard(filteredProblems);
+        }
+
+        // Show all columns
+        function showAllColumns() {
+          const columns = document.querySelectorAll(".kanban-column");
+          columns.forEach((column) => {
+            column.style.display = "flex";
+          });
+        }
+
+        // Initial fetch
+        fetchProblems();
+
+        // Event listeners
+        searchFilter.addEventListener("input", filterProblems);
+        showAllBtn.addEventListener("click", showAllColumns);
+      });
+    </script>
+  </body>
+</html>

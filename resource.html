@@ -1,0 +1,1597 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ideonix Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css" />
+    <script src="dashboard.js"></script>
+
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav class="dashboard-navbar">
+        <div class="logo">
+          <i class="fas fa-lightbulb"></i> <span>Ideonix</span>
+          <small>Ideas & Innovation</small>
+        </div>
+      
+        <div class="hamburger" id="hamburger">&#9776;</div>
+      
+        <ul class="nav-links" id="nav-links">
+          <li><a href="dashboard.html"><i class="fas fa-home"></i> Home</a></li>
+      
+          <li class="dropdown">
+            <a href="javascript:void(0)" class="dropdown-toggle">
+              <i class="fas fa-lightbulb"></i> Ideas
+              <i class="fas fa-chevron-down"></i>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="explore.html"><i class="fas fa-search"></i> Explore Ideas</a></li>
+              <li><a href="submit.html"><i class="fas fa-plus-circle"></i> Submit Ideas</a></li>
+            </ul>
+          </li>
+      
+          <li class="dropdown">
+            <a href="javascript:void(0)" class="dropdown-toggle">
+              <i class="fas fa-triangle-exclamation"></i> Problems
+              <i class="fas fa-chevron-down"></i>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="problem.html"><i class="fas fa-plus-circle"></i> Submit Problems</a></li>
+              <li><a href="view-problem.html"><i class="fas fa-eye"></i> View Problems</a></li>
+            </ul>
+          </li>
+      
+          <li class="dropdown">
+            <a href="javascript:void(0)" class="dropdown-toggle">
+              <i class="fas fa-user-circle"></i> Profile
+              <i class="fas fa-chevron-down"></i>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="user.html"><i class="fas fa-id-badge"></i> Your Profile</a></li>
+              <li><a href="profile.html"><i class="fas fa-users"></i> Others' Profiles</a></li>
+            </ul>
+          </li>
+      
+          <li><a href="ranking.html"><i class="fas fa-trophy"></i> Rankings</a></li>
+      
+          <li class="dropdown">
+            <a href="javascript:void(0)" class="dropdown-toggle">
+              <i class="fas fa-users"></i> Community
+              <i class="fas fa-chevron-down"></i>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="resource.html"><i class="fas fa-book"></i> Resources</a></li>
+              <li><a href="about.html"><i class="fas fa-circle-info"></i> About Us</a></li>
+              <li><a href="report.html"><i class="fas fa-bug"></i> Report a Problem</a></li>
+              <li><a href="feedback.html"><i class="fas fa-comment-dots"></i> Feedback</a></li>
+              <li><a href="quiz.html"><i class="fas fa-question-circle"></i> Quiz</a></li>
+            </ul>
+          </li>
+      
+          <li>
+            <button class="logout-link" onclick="handleLogout()">
+              <i class="fas fa-right-from-bracket"></i> Logout
+            </button>
+          </li>
+        </ul>
+      </nav>
+    <style>
+        :root {
+            --primary-color:  #2563eb;
+            --secondary-color: #10b981;
+            --accent-color: #4ecdc4;
+            --text-color: #333;
+            --light-bg: #f8f9fa;
+            --white: #ffffff;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            padding-top: 50px;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .resource-tabs {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+            gap: 1rem;
+        }
+
+        .tab-button {
+            padding: 10px 20px;
+            background-color: var(--white);
+            border: 2px solid var(--primary-color);
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            color: var(--primary-color);
+        }
+
+        .tab-button.active {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .tab-button:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .search-container {
+            margin: 2rem 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-box {
+            width: 100%;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 45px 12px 15px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .search-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.3);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-color);
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .resource-card {
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .resource-header {
+            padding: 1.2rem;
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .resource-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.3rem;
+            font-weight: 600;
+        }
+
+        .resource-author {
+            font-size: 1rem;
+            opacity: 0.9;
+            font-style: italic;
+        }
+
+        .resource-description {
+            padding: 1.2rem;
+            flex-grow: 1;
+        }
+
+        .resource-link-container {
+            padding: 0.8rem 1.2rem;
+            background-color: var(--accent-color);
+            text-align: center;
+        }
+
+        .resource-link {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .resource-link:hover {
+            background-color: #3db8b0;
+        }
+
+        .link-icon {
+            margin-right: 8px;
+        }
+
+        .link-not-available {
+            color: #fff;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.7;
+            cursor: default;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            font-size: 1.2rem;
+            color: #666;
+            display: none;
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .video-duration {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+
+        .video-card {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .video-thumbnail-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 3rem;
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+
+        .video-card:hover .play-icon {
+            opacity: 1;
+            font-size: 3.5rem;
+        }
+
+        .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .video-modal.active {
+            display: flex;
+        }
+
+        .video-modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 900px;
+            background-color: #000;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .video-modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 1001;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .video-modal-close:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .video-iframe-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        footer {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .video-modal-content {
+                width: 95%;
+                margin: 20px;
+            }
+        }
+
+.featured-resource {
+    border: 2px solid #FFD700;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    transform: scale(1.03);
+    position: relative;
+    overflow: visible;
+    z-index: 10;
+}
+
+.featured-badge {
+    position: absolute;
+    top: -12px;
+    right: 20px;
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    color: #333;
+    font-weight: bold;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    z-index: 20;
+}
+
+.featured-header {
+    background: linear-gradient(135deg, #FFD700, #FFA500) !important;
+    color: #333 !important;
+}
+
+.featured-link {
+    background-color: #FFD700 !important;
+}
+
+.featured-link .resource-link:hover {
+    background-color: #FFA500 !important;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(255, 215, 0, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
+}
+
+.featured-resource {
+    animation: pulse 2s infinite;
+}
+
+.dashboard-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--white);
+    box-shadow: var(--shadow);
+    padding: 0 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.logo i {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-right: 10px;
+}
+
+.logo span {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.logo small {
+    font-size: 0.7rem;
+    color: var(--text-color);
+}
+
+.hamburger {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    position: relative;
+}
+
+.nav-links a {
+    display: flex;
+    align-items: center;
+    padding: 15px 10px;
+    text-decoration: none;
+    color: var(--text-color);
+    transition: var(--transition);
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+}
+
+.nav-links i {
+    margin-right: 5px;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-toggle {
+    display: flex;
+    align-items: center;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--white);
+    min-width: 200px;
+    box-shadow: var(--shadow);
+    border-radius: 5px;
+    z-index: 10;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu li {
+    width: 100%;
+}
+
+.dropdown-menu a {
+    padding: 10px 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.logout-link {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: inherit;
+    display: flex;
+    align-items: center;
+    padding: 15px 10px;
+    color: var(--text-color);
+    transition: var(--transition);
+}
+
+.logout-link:hover {
+    color: var(--primary-color);
+}
+
+@media (max-width: 768px) {
+    .hamburger {
+        display: block;
+    }
+    
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--white);
+        box-shadow: var(--shadow);
+    }
+    
+    .nav-links.active {
+        display: flex;
+    }
+    
+    .dropdown-menu {
+        position: static;
+        box-shadow: none;
+        width: 100%;
+    }
+}
+
+.footer {
+    background-color: #1a1a1a;
+    color: #fff;
+    padding: 50px 0 20px;
+}
+
+.footer-cta {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.footer-cta h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.footer-cta p {
+    max-width: 600px;
+    margin: 0 auto 30px;
+    font-size: 1.1rem;
+}
+
+.footer-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.btn {
+    padding: 12px 25px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition);
+    display: inline-block;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #1d4ed8;
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+}
+
+.btn-secondary:hover {
+    background-color: white;
+    color: #1a1a1a;
+}
+
+.footer-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.footer-section h3 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    color: var(--accent-color);
+}
+
+.footer-section h4 {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    color: var(--accent-color);
+}
+
+.footer-section p {
+    margin-bottom: 15px;
+    opacity: 0.8;
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+    color: white;
+    text-decoration: none;
+    opacity: 0.8;
+    transition: var(--transition);
+}
+
+.footer-section ul li a:hover {
+    opacity: 1;
+    color: var(--accent-color);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    opacity: 0.8;
+}
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Learning Resources Explorer</h1>
+            <p class="subtitle">Discover valuable books and videos to enhance your knowledge and skills</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="resource-tabs">
+            <button class="tab-button active" id="booksTab">Books</button>
+            <button class="tab-button" id="videosTab">Videos</button>
+            <button class="tab-button" id="allTab">All Resources</button>
+        </div>
+
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" class="search-input" id="searchInput" placeholder="Search by title, author, or keyword...">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+        </div>
+
+        <div class="resources-grid" id="booksGrid">
+            <div class="resource-card" data-type="book">
+                <div class="resource-header">
+                    <h3 class="resource-title">Atomic Habits</h3>
+                    <p class="resource-author">James Clear</p>
+                </div>
+                <div class="resource-description">
+                    <p>A practical guide to building good habits and breaking bad ones with tiny changes.</p>
+                </div>
+                <div class="resource-link-container">
+                    <a href="https://dn790008.ca.archive.org/0/items/atomic-habits-original/Atomic%20Habits%20Original.pdf" class="resource-link" target="_blank">
+                        <i class="fas fa-book-open link-icon"></i> View Book
+                    </a>
+                </div>
+            </div>
+
+            <div class="resource-card featured-resource" data-type="book">
+                <div class="featured-badge">FEATURED</div>
+                <div class="resource-header featured-header">
+                    <h3 class="resource-title">Ideonix: The Innovator's Playbook</h3>
+                    <p class="resource-author">Ideonix Team</p>
+                </div>
+                <div class="resource-description">
+                    <p>A comprehensive guide to innovation methodologies and creative problem-solving techniques for modern entrepreneurs and innovators.</p>
+                </div>
+                <div class="resource-link-container featured-link">
+                    <a href="Ideonix The Innovator's Playbook.pdf" class="resource-link" target="_blank">
+                        <i class="fas fa-star link-icon"></i> View Book
+                    </a>
+                </div>
+            </div>
+            
+            <div class="resource-card" data-type="book">
+                <div class="resource-header">
+                    <h3 class="resource-title">Deep Work</h3>
+                    <p class="resource-author">Cal Newport</p>
+                </div>
+                <div class="resource-description">
+                    <p>Learn how to focus intensely in a distracted world and produce your best work.</p>
+                </div>
+                <div class="resource-link-container">
+                    <a href="https://www.bookdio.org/_files/ugd/ef8af1_b95509ae506d4167950bf5ee4e2daa98.pdf" class="resource-link" target="_blank">
+                        <i class="fas fa-book-open link-icon"></i> View Book
+                    </a>
+                </div>
+            </div>
+
+            <div class="resource-card" data-type="book">
+                <div class="resource-header">
+                    <h3 class="resource-title">Mindset: The New Psychology of Success</h3>
+                    <p class="resource-author">Carol S. Dweck</p>
+                </div>
+                <div class="resource-description">
+                    <p>Explains fixed vs. growth mindset and how adopting the latter transforms learning and life.</p>
+                </div>
+                <div class="resource-link-container">
+                    <div class="link-not-available">
+                        <i class="fas fa-book-open link-icon"></i> Link not available
+                    </div>
+                </div>
+            </div>
+
+            <div class="resource-card" data-type="book">
+                <div class="resource-header">
+                    <h3 class="resource-title">The 7 Habits of Highly Effective People</h3>
+                    <p class="resource-author">Stephen R. Covey</p>
+                </div>
+                <div class="resource-description">
+                    <p>Timeless principles of effectiveness, leadership, and self-management.</p>
+                </div>
+                <div class="resource-link-container">
+                    <a href="https://ia600200.us.archive.org/19/items/SevenHabits/CoveyStephen-TheSevenHabitsOfHighlyEffectivePeople.pdf" class="resource-link" target="_blank">
+                        <i class="fas fa-book-open link-icon"></i> View Book
+                    </a>
+                </div>
+            </div>
+
+            <div class="resource-card" data-type="book">
+                <div class="resource-header">
+                    <h3 class="resource-title">Make It Stick: The Science of Successful Learning</h3>
+                    <p class="resource-author">Peter C. Brown</p>
+                </div>
+                <div class="resource-description">
+                    <p>Research-backed techniques to learn faster and remember longer—perfect for exams.</p>
+                </div>
+                <div class="resource-link-container">
+                    <a href="https://books.google.co.in/books?id=oneWAwAAQBAJ&printsec=frontcover#v=onepage&q&f=false" class="resource-link" target="_blank">
+                        <i class="fas fa-book-open link-icon"></i> View Book
+                    </a>
+                </div>
+            </div>
+
+            <div class="resource-card" data-type="book">
+                <div class="resource-header">
+                    <h3 class="resource-title">Grit: The Power of Passion and Perseverance</h3>
+                    <p class="resource-author">Angela Duckworth</p>
+                </div>
+                <div class="resource-description">
+                    <p>Shows why perseverance beats talent and how to build grit in your own life.</p>
+                </div>
+                <div class="resource-link-container">
+                    <a href="https://www.perlego.com/ereader/1391883" class="resource-link" target="_blank">
+                        <i class="fas fa-book-open link-icon"></i> View Book
+                    </a>
+                </div>
+            </div>
+
+            <div class="resource-card" data-type="book">
+                <div class="resource-header">
+                    <h3 class="resource-title">Sapiens: A Brief History of Humankind</h3>
+                    <p class="resource-author">Yuval Noah Harari</p>
+                </div>
+                <div class="resource-description">
+                    <p>A sweeping look at how humans evolved and built societies, cultures, and economies.</p>
+                </div>
+                <div class="resource-link-container">
+                    <a href="https://ia802908.us.archive.org/8/items/spqr-a-history-of-ancient-rome/Sapiens-%20A%20Brief%20History%20of%20Humankind.pdf" class="resource-link" target="_blank">
+                        <i class="fas fa-book-open link-icon"></i> View Book
+                    </a>
+                </div>
+            </div>
+
+            <div class="resource-card" data-type="book">
+                <div class="resource-header">
+                    <h3 class="resource-title">Man's Search for Meaning</h3>
+                    <p class="resource-author">Viktor E. Frankl</p>
+                </div>
+                <div class="resource-description">
+                    <p>A moving memoir and guide to finding purpose, even in adversity.</p>
+                </div>
+                <div class="resource-link-container">
+                    <a href="https://dn720001.ca.archive.org/0/items/viktor-emil-frankl-mans-search-for-meaning/Viktor-Emil-Frankl-Mans-Search-for-Meaning.pdf" class="resource-link" target="_blank">
+                        <i class="fas fa-book-open link-icon"></i> View Book
+                    </a>
+                </div>
+            </div>
+
+            <div class="resource-card" data-type="book">
+                <div class="resource-header">
+                    <h3 class="resource-title">Thinking, Fast and Slow</h3>
+                    <p class="resource-author">Daniel Kahneman</p>
+                </div>
+                <div class="resource-description">
+                    <p>How our brains make decisions—fast intuitive vs. slow analytical thinking.</p>
+                </div>
+                <div class="resource-link-container">
+                    <a href="https://www.bookdio.org/_files/ugd/43cb27_41956ca859ac4fb39cff28d9c11e5995.pdf" class="resource-link" target="_blank">
+                        <i class="fas fa-book-open link-icon"></i> View Book
+                    </a>
+                </div>
+            </div>
+
+            <div class="resource-card" data-type="book">
+                <div class="resource-header">
+                    <h3 class="resource-title">Factfulness</h3>
+                    <p class="resource-author">Hans Rosling</p>
+                </div>
+                <div class="resource-description">
+                    <p>Teaches you to see the world based on facts, not fear or misconceptions.</p>
+                </div>
+                <div class="resource-link-container">
+                    <a href="https://www.bookdio.org/_files/ugd/ef8af1_ddb2cdfbde6d455aac18bddd55119554.pdf" class="resource-link" target="_blank">
+                        <i class="fas fa-book-open link-icon"></i> View Book
+                    </a>
+                </div>
+            </div>
+
+            <div class="resource-card" data-type="book">
+                <div class="resource-header">
+                    <h3 class="resource-title">The Psychology of Money (Hindi)</h3>
+                    <p class="resource-author">Morgan Housel</p>
+                </div>
+                <div class="resource-description">
+                    <p>Smart, simple lessons about money, behavior, and making better financial choices (Hindi version).</p>
+                </div>
+                <div class="resource-link-container">
+                    <a href="https://www.bookdio.org/_files/ugd/43cb27_839c66f3fd204c1f9af9808bc7bccbe0.pdf" class="resource-link" target="_blank">
+                        <i class="fas fa-book-open link-icon"></i> View Book
+                    </a>
+                </div>
+            </div>
+
+            <div class="resource-card" data-type="book">
+                <div class="resource-header">
+                    <h3 class="resource-title">The Art of Learning</h3>
+                    <p class="resource-author">Josh Waitzkin</p>
+                </div>
+                <div class="resource-description">
+                    <p>A roadmap to mastering any skill through deep focus and deliberate practice.</p>
+                </div>
+                <div class="resource-link-container">
+                    <a href="https://www.bookdio.org/_files/ugd/43cb27_039ddb9264364d41afabfd5990ea35b6.pdf" class="resource-link" target="_blank">
+                        <i class="fas fa-book-open link-icon"></i> View Book
+                    </a>
+                </div>
+            </div>
+
+            <div class="resource-card" data-type="book">
+                <div class="resource-header">
+                    <h3 class="resource-title">Originals: How Non-Conformists Move the World</h3>
+                    <p class="resource-author">Adam Grant</p>
+                </div>
+                <div class="resource-description">
+                    <p>How to champion new ideas and stand out while staying authentic.</p>
+                </div>
+                <div class="resource-link-container">
+                    <div class="link-not-available">
+                        <i class="fas fa-book-open link-icon"></i> Link not available
+                    </div>
+                </div>
+            </div>
+
+            <div class="resource-card" data-type="book">
+                <div class="resource-header">
+                    <h3 class="resource-title">How to Win Friends and Influence People</h3>
+                    <p class="resource-author">Dale Carnegie</p>
+                </div>
+                <div class="resource-description">
+                    <p>Classic guide to communication, persuasion, and building lasting relationships.</p>
+                </div>
+                <div class="resource-link-container">
+                    <a href="https://www.bookdio.org/_files/ugd/43cb27_03d1212ac0784dd39b09059d7692a7c5.pdf" class="resource-link" target="_blank">
+                        <i class="fas fa-book-open link-icon"></i> View Book
+                    </a>
+                </div>
+            </div>
+
+            <div class="resource-card" data-type="book">
+                <div class="resource-header">
+                    <h3 class="resource-title">A Short History of Nearly Everything</h3>
+                    <p class="resource-author">Bill Bryson</p>
+                </div>
+                <div class="resource-description">
+                    <p>A fun, engaging tour of science—how our universe and life came to be explained.</p>
+                </div>
+                <div class="resource-link-container">
+                    <a href="https://www.bookdio.org/_files/ugd/ef8af1_233b81be00e7498fa31bfa6733ed287d.pdf" class="resource-link" target="_blank">
+                        <i class="fas fa-book-open link-icon"></i> View Book
+                    </a>
+                </div>
+            </div>
+
+            <div class="resource-card" data-type="book">
+                <div class="resource-header">
+                    <h3 class="resource-title">Educated</h3>
+                    <p class="resource-author">Tara Westover</p>
+                </div>
+                <div class="resource-description">
+                    <p>Memoir of growing up without formal schooling and fighting to gain an education—deeply inspiring.</p>
+                </div>
+                <div class="resource-link-container">
+                    <a href="https://www.bookdio.org/_files/ugd/43cb27_9576e74623574aa9a14e6e799ac2df10.pdf" class="resource-link" target="_blank">
+                        <i class="fas fa-book-open link-icon"></i> View Book
+                    </a>
+                </div>
+            </div>
+
+            <div class="resource-card" data-type="book">
+                <div class="resource-header">
+                    <h3 class="resource-title">Flow: The Psychology of Optimal Experience</h3>
+                    <p class="resource-author">Mihaly Csikszentmihalyi</p>
+                </div>
+                <div class="resource-description">
+                    <p>How to enter a state of deep focus and joy, ideal for studying or working.</p>
+                </div>
+                <div class="resource-link-container">
+                    <a href="https://www.bookdio.org/_files/ugd/ef8af1_932494e678454ec7ab1d077b8b573199.pdf" class="resource-link" target="_blank">
+                        <i class="fas fa-book-open link-icon"></i> View Book
+                    </a>
+                </div>
+            </div>
+            
+
+            <div class="resource-card" data-type="book">
+                <div class="resource-header">
+                    <h3 class="resource-title">The Checklist Manifesto</h3>
+                    <p class="resource-author">Atul Gawande</p>
+                </div>
+                <div class="resource-description">
+                    <p>Simple but powerful ways to avoid mistakes and be more organized and effective.</p>
+                </div>
+                <div class="resource-link-container">
+                    <div class="link-not-available">
+                        <i class="fas fa-book-open link-icon"></i> Link not available
+                    </div>
+                </div>
+            </div>
+            <div class="resource-card" data-type="book">
+                <div class="resource-header">
+                    <h3 class="resource-title">The Lean Startup</h3>
+                    <p class="resource-author">Eric Ries</p>
+                </div>
+                <div class="resource-description">
+                    <p>The gold standard for testing and launching ideas quickly with minimal waste.</p>
+                </div>
+                <div class="resource-link-container">
+                    <div class="link-not-available">
+                        <i class="fas fa-book-open link-icon"></i> Link not available
+                    </div>
+                </div>
+            </div>
+
+            <div class="resource-card" data-type="book">
+                <div class="resource-header">
+                    <h3 class="resource-title">Zero to One</h3>
+                    <p class="resource-author">Peter Thiel with Blake Masters</p>
+                </div>
+                <div class="resource-description">
+                    <p>Teaches how to create breakthrough companies rather than copy existing ones.</p>
+                </div>
+                <div class="resource-link-container">
+                    <a href="https://www.bookdio.org/_files/ugd/43cb27_c3dcbb80f6cf49629e4b05afe1f9e98e.pdf" class="resource-link" target="_blank">
+                        <i class="fas fa-book-open link-icon"></i> View Book
+                    </a>
+                </div>
+            </div>
+
+            <div class="resource-card" data-type="book">
+                <div class="resource-header">
+                    <h3 class="resource-title">The $100 Startup</h3>
+                    <p class="resource-author">Chris Guillebeau</p>
+                </div>
+                <div class="resource-description">
+                    <p>Real-world case studies of people who built small businesses on shoestring budgets.</p>
+                </div>
+                <div class="resource-link-container">
+                    <div class="link-not-available">
+                        <i class="fas fa-book-open link-icon"></i> Link not available
+                    </div>
+                </div>
+            </div>
+
+            <div class="resource-card" data-type="book">
+                <div class="resource-header">
+                    <h3 class="resource-title">Start with Why</h3>
+                    <p class="resource-author">Simon Sinek</p>
+                </div>
+                <div class="resource-description">
+                    <p>How defining your "why" drives loyalty, leadership, and long-term success.</p>
+                </div>
+                <div class="resource-link-container">
+                    <div class="link-not-available">
+                        <i class="fas fa-book-open link-icon"></i> Link not available
+                    </div>
+                </div>
+            </div>
+
+            <div class="resource-card" data-type="book">
+                <div class="resource-header">
+                    <h3 class="resource-title">The Hard Thing About Hard Things</h3>
+                    <p class="resource-author">Ben Horowitz</p>
+                </div>
+                <div class="resource-description">
+                    <p>Honest lessons from running and scaling startups—managing chaos and crises.</p>
+                </div>
+                <div class="resource-link-container">
+                    <a href="https://www.bookdio.org/_files/ugd/ef8af1_e9f4aff57fac4221b7cee617b2e76907.pdf" class="resource-link" target="_blank">
+                        <i class="fas fa-book-open link-icon"></i> View Book
+                    </a>
+                </div>
+            </div>
+
+            <div class="resource-card" data-type="book">
+                <div class="resource-header">
+                    <h3 class="resource-title">Rework</h3>
+                    <p class="resource-author">Jason Fried & David Heinemeier Hansson</p>
+                </div>
+                <div class="resource-description">
+                    <p>Short, contrarian tips on running a simpler, more productive business.</p>
+                </div>
+                <div class="resource-link-container">
+                    <div class="link-not-available">
+                        <i class="fas fa-book-open link-icon"></i> Link not available
+                    </div>
+                </div>
+            </div>
+
+            <div class="resource-card" data-type="book">
+                <div class="resource-header">
+                    <h3 class="resource-title">Founders at Work</h3>
+                    <p class="resource-author">Jessica Livingston</p>
+                </div>
+                <div class="resource-description">
+                    <p>Interviews with startup founders (Apple, PayPal, Hotmail) sharing their early struggles.</p>
+                </div>
+                <div class="resource-link-container">
+                    <div class="link-not-available">
+                        <i class="fas fa-book-open link-icon"></i> Link not available
+                    </div>
+                </div>
+            </div>
+
+            <div class="resource-card" data-type="book">
+                <div class="resource-header">
+                    <h3 class="resource-title">The E-Myth Revisited</h3>
+                    <p class="resource-author">Michael E. Gerber</p>
+                </div>
+                <div class="resource-description">
+                    <p>Why most small businesses fail and how to build scalable systems.</p>
+                </div>
+                <div class="resource-link-container">
+                    <div class="link-not-available">
+                        <i class="fas fa-book-open link-icon"></i> Link not available
+                    </div>
+                </div>
+            </div>
+
+            <div class="resource-card" data-type="book">
+                <div class="resource-header">
+                    <h3 class="resource-title">Purple Cow</h3>
+                    <p class="resource-author">Seth Godin</p>
+                </div>
+                <div class="resource-description">
+                    <p>How to make your product or service stand out in a crowded market.</p>
+                </div>
+                <div class="resource-link-container">
+                    <div class="link-not-available">
+                        <i class="fas fa-book-open link-icon"></i> Link not available
+                    </div>
+                </div>
+            </div>
+
+            <div class="resource-card" data-type="book">
+                <div class="resource-header">
+                    <h3 class="resource-title">Delivering Happiness</h3>
+                    <p class="resource-author">Tony Hsieh</p>
+                </div>
+                <div class="resource-description">
+                    <p>The Zappos story—building company culture and customer service as a competitive edge.</p>
+                </div>
+                <div class="resource-link-container">
+                    <div class="link-not-available">
+                        <i class="fas fa-book-open link-icon"></i> Link not available
+                    </div>
+                </div>
+            </div>
+
+            <div class="resource-card" data-type="book">
+                <div class="resource-header">
+                    <h3 class="resource-title">Good to Great</h3>
+                    <p class="resource-author">Jim Collins</p>
+                </div>
+                <div class="resource-description">
+                    <p>Research on what makes companies sustain exceptional performance.</p>
+                </div>
+                <div class="resource-link-container">
+                    <a href="https://www.bookdio.org/_files/ugd/43cb27_81e1d6f5f09c4833a7c6d75b3473ca4d.pdf" class="resource-link" target="_blank">
+                        <i class="fas fa-book-open link-icon"></i> View Book
+                    </a>
+                </div>
+            </div>
+
+            <div class="resource-card" data-type="book">
+                <div class="resource-header">
+                    <h3 class="resource-title">The Innovator's Dilemma</h3>
+                    <p class="resource-author">Clayton Christensen</p>
+                </div>
+                <div class="resource-description">
+                    <p>Classic on disruptive innovation—why great companies fail to adapt and how to avoid it.</p>
+                </div>
+                <div class="resource-link-container">
+                    <div class="link-not-available">
+                        <i class="fas fa-book-open link-icon"></i> Link not available
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="resources-grid" id="videosGrid" style="display: none;">
+            <div class="resource-card video-card" data-type="video" data-video-id="pC5l5j2u9SQ">
+                <div class="video-thumbnail-container">
+                    <img src="https://img.youtube.com/vi/pC5l5j2u9SQ/hqdefault.jpg" alt="Video thumbnail" class="video-thumbnail">
+                    <i class="fas fa-play-circle play-icon"></i>
+                </div>
+                <div class="resource-header">
+                    <h3 class="resource-title">Innovation and Creativity</h3>
+                    <p class="resource-author">TED Talks</p>
+                </div>
+                <div class="resource-description">
+                    <p>Exploring the intersection of innovation and creativity in modern problem-solving.</p>
+                </div>
+                <div class="resource-link-container">
+                    <div class="resource-link" onclick="openVideoModal('pC5l5j2u9SQ')">
+                        <i class="fas fa-play link-icon"></i> Watch Video
+                    </div>
+                </div>
+            </div>
+
+            <div class="resource-card video-card" data-type="video" data-video-id="Xcsp0486olY">
+                <div class="video-thumbnail-container">
+                    <img src="https://img.youtube.com/vi/Xcsp0486olY/hqdefault.jpg" alt="Video thumbnail" class="video-thumbnail">
+                    <i class="fas fa-play-circle play-icon"></i>
+                </div>
+                <div class="resource-header">
+                    <h3 class="resource-title">The Power of Ideas</h3>
+                    <p class="resource-author">Innovation Lab</p>
+                </div>
+                <div class="resource-description">
+                    <p>How small ideas can transform into world-changing innovations.</p>
+                </div>
+                <div class="resource-link-container">
+                    <div class="resource-link" onclick="openVideoModal('Xcsp0486olY')">
+                        <i class="fas fa-play link-icon"></i> Watch Video
+                    </div>
+                </div>
+            </div>
+
+            <div class="resource-card video-card" data-type="video" data-video-id="gFYBqZnFQ6w">
+                <div class="video-thumbnail-container">
+                    <img src="https://img.youtube.com/vi/gFYBqZnFQ6w/hqdefault.jpg" alt="Video thumbnail" class="video-thumbnail">
+                    <i class="fas fa-play-circle play-icon"></i>
+                </div>
+                <div class="resource-header">
+                    <h3 class="resource-title">Problem-Solving Strategies</h3>
+                    <p class="resource-author">Mind Tools</p>
+                </div>
+                <div class="resource-description">
+                    <p>Effective strategies for tackling complex problems in innovative ways.</p>
+                </div>
+                <div class="resource-link-container">
+                    <div class="resource-link" onclick="openVideoModal('gFYBqZnFQ6w')">
+                        <i class="fas fa-play link-icon"></i> Watch Video
+                    </div>
+                </div>
+            </div>
+
+            <div class="resource-card video-card" data-type="video" data-video-id="aTo0qtdVMpM">
+                <div class="video-thumbnail-container">
+                    <img src="https://img.youtube.com/vi/aTo0qtdVMpM/hqdefault.jpg" alt="Video thumbnail" class="video-thumbnail">
+                    <i class="fas fa-play-circle play-icon"></i>
+                </div>
+                <div class="resource-header">
+                    <h3 class="resource-title">Building a Culture of Innovation</h3>
+                    <p class="resource-author">Harvard Business Review</p>
+                </div>
+                <div class="resource-description">
+                    <p>Creating an environment where innovation thrives and ideas flourish.</p>
+                </div>
+                <div class="resource-link-container">
+                    <div class="resource-link" onclick="openVideoModal('aTo0qtdVMpM')">
+                        <i class="fas fa-play link-icon"></i> Watch Video
+                    </div>
+                </div>
+            </div>
+
+            <div class="resource-card video-card" data-type="video" data-video-id="RWioqbwHQfE">
+                <div class="video-thumbnail-container">
+                    <img src="https://img.youtube.com/vi/RWioqbwHQfE/hqdefault.jpg" alt="Video thumbnail" class="video-thumbnail">
+                    <i class="fas fa-play-circle play-icon"></i>
+                </div>
+                <div class="resource-header">
+                    <h3 class="resource-title">Design Thinking Process</h3>
+                    <p class="resource-author">IDEO</p>
+                </div>
+                <div class="resource-description">
+                    <p>A step-by-step guide to applying design thinking to solve complex problems.</p>
+                </div>
+                <div class="resource-link-container">
+                    <div class="resource-link" onclick="openVideoModal('RWioqbwHQfE')">
+                        <i class="fas fa-play link-icon"></i> Watch Video
+                    </div>
+                </div>
+            </div>
+
+            <div class="resource-card video-card" data-type="video" data-video-id="Re0h-vHyyiw">
+                <div class="video-thumbnail-container">
+                    <img src="https://img.youtube.com/vi/Re0h-vHyyiw/hqdefault.jpg" alt="Video thumbnail" class="video-thumbnail">
+                    <i class="fas fa-play-circle play-icon"></i>
+                </div>
+                <div class="resource-header">
+                    <h3 class="resource-title">From Idea to Implementation</h3>
+                    <p class="resource-author">Startup School</p>
+                </div>
+                <div class="resource-description">
+                    <p>The journey of transforming an innovative idea into a successful product.</p>
+                </div>
+                <div class="resource-link-container">
+                    <div class="resource-link" onclick="openVideoModal('Re0h-vHyyiw')">
+                        <i class="fas fa-play link-icon"></i> Watch Video
+                    </div>
+                </div>
+            </div>
+
+            <div class="resource-card video-card" data-type="video" data-video-id="eHJnEHyyN1Y">
+                <div class="video-thumbnail-container">
+                    <img src="https://img.youtube.com/vi/eHJnEHyyN1Y/hqdefault.jpg" alt="Video thumbnail" class="video-thumbnail">
+                    <i class="fas fa-play-circle play-icon"></i>
+                </div>
+                <div class="resource-header">
+                    <h3 class="resource-title">Collaborative Innovation</h3>
+                    <p class="resource-author">MIT Sloan</p>
+                </div>
+                <div class="resource-description">
+                    <p>How collaboration drives innovation and creates breakthrough solutions.</p>
+                </div>
+                <div class="resource-link-container">
+                    <div class="resource-link" onclick="openVideoModal('eHJnEHyyN1Y')">
+                        <i class="fas fa-play link-icon"></i> Watch Video
+                    </div>
+                </div>
+            </div>
+
+            <div class="resource-card video-card" data-type="video" data-video-id="Ihs4VFZWwn4">
+                <div class="video-thumbnail-container">
+                    <img src="https://img.youtube.com/vi/Ihs4VFZWwn4/hqdefault.jpg" alt="Video thumbnail" class="video-thumbnail">
+                    <i class="fas fa-play-circle play-icon"></i>
+                </div>
+                <div class="resource-header">
+                    <h3 class="resource-title">The Future of Innovation</h3>
+                    <p class="resource-author">World Economic Forum</p>
+                </div>
+                <div class="resource-description">
+                    <p>Exploring emerging trends and technologies shaping the future of innovation.</p>
+                </div>
+                <div class="resource-link-container">
+                    <div class="resource-link" onclick="openVideoModal('Ihs4VFZWwn4')">
+                        <i class="fas fa-play link-icon"></i> Watch Video
+                    </div>
+                </div>
+            </div>
+
+            <div class="resource-card video-card" data-type="video" data-video-id="lJjILQu2xM8">
+                <div class="video-thumbnail-container">
+                    <img src="https://img.youtube.com/vi/lJjILQu2xM8/hqdefault.jpg" alt="Video thumbnail" class="video-thumbnail">
+                    <i class="fas fa-play-circle play-icon"></i>
+                </div>
+                <div class="resource-header">
+                    <h3 class="resource-title">Innovation in Action</h3>
+                    <p class="resource-author">Google X</p>
+                </div>
+                <div class="resource-description">
+                    <p>Real-world examples of innovation solving some of the world's biggest challenges.</p>
+                </div>
+                <div class="resource-link-container">
+                    <div class="resource-link" onclick="openVideoModal('lJjILQu2xM8')">
+                        <i class="fas fa-play link-icon"></i> Watch Video
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="no-results" id="noResults">
+            <i class="fas fa-search fa-3x" style="margin-bottom: 1rem; opacity: 0.5;"></i>
+            <p>No resources found matching your search criteria.</p>
+        </div>
+    </main>
+
+    <div class="video-modal" id="videoModal">
+        <div class="video-modal-content">
+            <span class="video-modal-close" onclick="closeVideoModal()">&times;</span>
+            <div class="video-iframe-container">
+                <iframe id="videoFrame" class="video-iframe" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+      <div class="footer-cta">
+        <h2>Ready to Share Your Next Big Idea?</h2>
+        <p>
+          Join thousands of developers and innovators who are building the
+          future, one idea at a time.
+        </p>
+        <div class="footer-buttons">
+          <a href="submit.html" class="btn btn-primary">+ Submit an Idea</a>
+          <a href="feedback.html" class="btn btn-secondary">Feedback</a>
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <div class="footer-section">
+          <h3><i class="fas fa-lightbulb"></i>Ideonix</h3>
+          <p>
+            Empowering developers to share ideas, solve problems, and build the
+            future together.
+          </p>
+        </div>
+
+        <div class="footer-section">
+          <h4>Platform</h4>
+          <ul>
+            <li><a href="explore.html">Explore Ideas</a></li>
+            <li><a href="submit.html">Submit Idea</a></li>
+            <li><a href="ranking.html">Rankings</a></li>
+            <li><a href="problem.html">Submit A Problem</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h4>Community</h4>
+          <ul>
+            <li><a href="report.html">Report a Problem</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="about.html">About Us</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>
+          © 2025 Ideonix Platform. Built with passion by developers, for
+          developers.
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      function handleLogout() {
+        const confirmLogout = confirm("Are you sure you want to logout?");
+        if (confirmLogout) {
+          localStorage.clear();
+          sessionStorage.clear();
+          window.location.href = "login.html";
+        }
+      }
+    </script>
+
+    <script>
+      document
+        .getElementById("hamburger")
+        .addEventListener("click", function () {
+          document.getElementById("nav-links").classList.toggle("active");
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            const booksGrid = document.getElementById('booksGrid');
+            const videosGrid = document.getElementById('videosGrid');
+            const noResults = document.getElementById('noResults');
+            const booksTab = document.getElementById('booksTab');
+            const videosTab = document.getElementById('videosTab');
+            const allTab = document.getElementById('allTab');
+            
+            const resourceCards = document.querySelectorAll('.resource-card');
+            
+            booksTab.addEventListener('click', function() {
+                booksGrid.style.display = 'grid';
+                videosGrid.style.display = 'none';
+                booksTab.classList.add('active');
+                videosTab.classList.remove('active');
+                allTab.classList.remove('active');
+                searchInput.value = '';
+                resetSearch();
+            });
+            
+            videosTab.addEventListener('click', function() {
+                booksGrid.style.display = 'none';
+                videosGrid.style.display = 'grid';
+                booksTab.classList.remove('active');
+                videosTab.classList.add('active');
+                allTab.classList.remove('active');
+                searchInput.value = '';
+                resetSearch();
+            });
+            
+            allTab.addEventListener('click', function() {
+                booksGrid.style.display = 'grid';
+                videosGrid.style.display = 'grid';
+                booksTab.classList.remove('active');
+                videosTab.classList.remove('active');
+                allTab.classList.add('active');
+                searchInput.value = '';
+                resetSearch();
+            });
+            
+            searchInput.addEventListener('input', function() {
+                const searchTerm = searchInput.value.toLowerCase();
+                let visibleCount = 0;
+                
+                resourceCards.forEach(card => {
+                    const title = card.querySelector('.resource-title').textContent.toLowerCase();
+                    const author = card.querySelector('.resource-author').textContent.toLowerCase();
+                    const description = card.querySelector('.resource-description').textContent.toLowerCase();
+                    const type = card.getAttribute('data-type');
+                    
+                    const matchesSearch = title.includes(searchTerm) || 
+                                         author.includes(searchTerm) || 
+                                         description.includes(searchTerm);
+                    
+                    const matchesTab = (type === 'book' && booksGrid.style.display !== 'none') ||
+                                     (type === 'video' && videosGrid.style.display !== 'none');
+                    
+                    if (matchesSearch && matchesTab) {
+                        card.style.display = 'flex';
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                if (visibleCount === 0 && searchTerm !== '') {
+                    noResults.style.display = 'block';
+                    if (booksGrid.style.display !== 'none') booksGrid.style.display = 'none';
+                    if (videosGrid.style.display !== 'none') videosGrid.style.display = 'none';
+                } else {
+                    noResults.style.display = 'none';
+                    if (booksTab.classList.contains('active') || allTab.classList.contains('active')) {
+                        booksGrid.style.display = 'grid';
+                    }
+                    if (videosTab.classList.contains('active') || allTab.classList.contains('active')) {
+                        videosGrid.style.display = 'grid';
+                    }
+                }
+            });
+            
+            function resetSearch() {
+                resourceCards.forEach(card => {
+                    card.style.display = 'flex';
+                });
+                noResults.style.display = 'none';
+            }
+        });
+
+        function openVideoModal(videoId) {
+            const modal = document.getElementById('videoModal');
+            const iframe = document.getElementById('videoFrame');
+            
+            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+            
+            modal.classList.add('active');
+            
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeVideoModal() {
+            const modal = document.getElementById('videoModal');
+            const iframe = document.getElementById('videoFrame');
+            
+            iframe.src = '';
+            
+            modal.classList.remove('active');
+            
+            document.body.style.overflow = 'auto';
+        }
+
+        document.getElementById('videoModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeVideoModal();
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeVideoModal();
+            }
+        });
+
+        document.querySelectorAll('.video-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                if (!e.target.closest('.resource-link-container')) {
+                    const videoId = this.getAttribute('data-video-id');
+                    openVideoModal(videoId);
+                }
+            });
+        });
+    </script>
+  </body>
+</html>

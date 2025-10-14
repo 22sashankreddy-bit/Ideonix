@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ideonix Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+<nav class="dashboard-navbar">
+  <div class="logo">
+    <i class="fas fa-lightbulb"></i> <span>Ideonix</span>
+    <small>Ideas & Innovation</small>
+  </div>
+
+  <div class="hamburger" id="hamburger">&#9776;</div>
+
+  <ul class="nav-links" id="nav-links">
+    <li><a href="dashboard.html"><i class="fas fa-home"></i> Home</a></li>
+
+    <li class="dropdown">
+      <a href="javascript:void(0)" class="dropdown-toggle">
+        <i class="fas fa-lightbulb"></i> Ideas
+        <i class="fas fa-chevron-down"></i>
+      </a>
+      <ul class="dropdown-menu">
+        <li><a href="explore.html"><i class="fas fa-search"></i> Explore Ideas</a></li>
+        <li><a href="submit.html"><i class="fas fa-plus-circle"></i> Submit Ideas</a></li>
+      </ul>
+    </li>
+
+    <li class="dropdown">
+      <a href="javascript:void(0)" class="dropdown-toggle">
+        <i class="fas fa-triangle-exclamation"></i> Problems
+        <i class="fas fa-chevron-down"></i>
+      </a>
+      <ul class="dropdown-menu">
+        <li><a href="problem.html"><i class="fas fa-plus-circle"></i> Submit Problems</a></li>
+        <li><a href="view-problem.html"><i class="fas fa-eye"></i> View Problems</a></li>
+      </ul>
+    </li>
+
+    <li class="dropdown">
+      <a href="javascript:void(0)" class="dropdown-toggle">
+        <i class="fas fa-user-circle"></i> Profile
+        <i class="fas fa-chevron-down"></i>
+      </a>
+      <ul class="dropdown-menu">
+        <li><a href="user.html"><i class="fas fa-id-badge"></i> Your Profile</a></li>
+        <li><a href="profile.html"><i class="fas fa-users"></i> Others’ Profiles</a></li>
+      </ul>
+    </li>
+
+    <li><a href="ranking.html"><i class="fas fa-trophy"></i> Rankings</a></li>
+
+    <li class="dropdown">
+      <a href="javascript:void(0)" class="dropdown-toggle">
+        <i class="fas fa-users"></i> Community
+        <i class="fas fa-chevron-down"></i>
+      </a>
+      <ul class="dropdown-menu">
+        <li><a href="resource.html"><i class="fas fa-book"></i> Resources</a></li>
+        <li><a href="about.html"><i class="fas fa-circle-info"></i> About Us</a></li>
+        <li><a href="report.html"><i class="fas fa-bug"></i> Report a Problem</a></li>
+        <li><a href="feedback.html"><i class="fas fa-comment-dots"></i> Feedback</a></li>
+        <li><a href="quiz.html"><i class="fas fa-question-circle"></i> Quiz</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <button class="logout-link" onclick="handleLogout()">
+        <i class="fas fa-right-from-bracket"></i> Logout
+      </button>
+    </li>
+  </ul>
+</nav>
+>
+        </li>
+      </ul>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-left">
+        <p class="welcome">
+          <i class="fas fa-star"></i> Welcome to <strong>Ideonix</strong>
+        </p>
+        <h1>Share Ideas, <span class="highlight">Solve Problems</span></h1>
+        <p class="subtitle">
+          Join our community of innovators, developers, and problem-solvers.
+          Share your breakthrough ideas and collaborate to build the future.
+        </p>
+        <div class="cta-buttons">
+          <button
+            class="btn primary"
+            onclick="window.location.href='explore.html';"
+          >
+            Explore Ideas <i class="fas fa-arrow-right"></i>
+          </button>
+
+          <button
+            class="btn secondary"
+            onclick="window.location.href='submit.html';"
+          >
+            Submit Idea
+          </button>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="feature-card">
+          <i class="fas fa-lightbulb icon blue"></i>
+          <h3>Innovation Hub</h3>
+          <p>Transform ideas into reality</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-chart-line icon green"></i>
+          <h3>Growth</h3>
+          <p>Learn and grow together</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-users icon purple"></i>
+          <h3>Community</h3>
+          <p>Connect with like-minded developers</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-trophy icon yellow"></i>
+          <h3>Recognition</h3>
+          <p>Get recognized for great ideas</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="counter-container">
+      <div>
+        <div id="ideasCounter" class="counter">0</div>
+        <p>Ideas Shared</p>
+      </div>
+      <div>
+        <div id="membersCounter" class="counter">0</div>
+        <p>Active Members</p>
+      </div>
+      <div>
+        <div id="possibilitiesCounter" class="counter">0</div>
+        <p>Possibilities</p>
+      </div>
+      <div>
+        <div id="yearCounter" class="counter">2025</div>
+        <p>Excellence Since</p>
+      </div>
+    </div>
+
+    <section class="ideas-section">
+      <h2>Latest Innovation Ideas</h2>
+      <p>
+        Discover groundbreaking ideas from our community of innovators and
+        problem-solvers.
+      </p>
+
+      <div class="ideas-grid">
+        <div class="idea-card">
+          <span class="category tech">Tech</span>
+          <h3>AI-Powered Personal Health Assistant</h3>
+          <p>
+            A mobile app that uses AI to monitor users' health metrics in
+            real-time through wearable devices. It provides personalized fitness
+            plans, diet suggestions, and early warnings for potential health
+            issues by analyzing patterns in the data.
+          </p>
+          <small>by Sai Pranav</small>
+        </div>
+
+        <div class="idea-card">
+          <span class="category education">Education</span>
+          <h3>Interactive Virtual Science Lab</h3>
+          <p>
+            An online platform that offers virtual science experiments and labs
+            for students, allowing them to conduct experiments safely and
+            interactively from home or school. It uses VR/AR technology to make
+            learning immersive and engaging.
+          </p>
+          <small>by Dharmik</small>
+        </div>
+
+        <div class="idea-card">
+          <span class="category electronics">Electronics</span>
+          <h3>Smart Home Energy Optimizer</h3>
+          <p>
+            A smart device integrated with home appliances that learns household
+            energy usage patterns and optimizes power consumption to reduce
+            electricity bills and carbon footprint. It can be controlled via an
+            app and supports voice assistants.
+          </p>
+          <small>by Rahul</small>
+        </div>
+
+        <div class="idea-card">
+          <span class="category tech">Tech</span>
+          <h3>Blockchain-Based Digital Identity Verification</h3>
+          <p>
+            A secure and decentralized platform for verifying digital identities
+            using blockchain technology. It helps businesses and individuals
+            prevent fraud and streamline KYC (Know Your Customer) processes in
+            banking, e-commerce, and government services.
+          </p>
+          <small>by Ram Charan</small>
+        </div>
+
+        <div class="idea-card">
+          <span class="category education">Education</span>
+          <h3>Language Learning with AI Tutors</h3>
+          <p>
+            An app that uses AI-powered conversational agents to help users
+            learn new languages through natural, real-time conversations. The
+            tutors adapt to the learner's pace and style, providing instant
+            feedback on pronunciation and grammar.
+          </p>
+          <small>by Inglis</small>
+        </div>
+
+        <div class="idea-card">
+          <span class="category electronics">Electronics</span>
+          <h3>Modular Smart Wearables</h3>
+          <p>
+            A startup creating modular wearable devices where users can
+            customize and upgrade parts (e.g., sensors, batteries, displays)
+            based on their needs—fitness tracking, health monitoring, or even
+            fashion—without replacing the entire device.
+          </p>
+          <small>by Alex</small>
+        </div>
+      </div>
+
+      <div class="view-all-container">
+        <button
+          class="btn-primary"
+          onclick="window.location.href='explore.html';"
+        >
+          View All Ideas →
+        </button>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-cta">
+        <h2>Ready to Share Your Next Big Idea?</h2>
+        <p>
+          Join thousands of developers and innovators who are building the
+          future, one idea at a time.
+        </p>
+        <div class="footer-buttons">
+          <a href="submit.html" class="btn btn-primary">+ Submit an Idea</a>
+          <a href="feedback.html" class="btn btn-secondary">Feedback</a>
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <div class="footer-section">
+          <h3><i class="fas fa-lightbulb"></i>Ideonix</h3>
+          <p>
+            Empowering developers to share ideas, solve problems, and build the
+            future together.
+          </p>
+        </div>
+
+        <div class="footer-section">
+          <h4>Platform</h4>
+          <ul>
+            <li><a href="explore.html">Explore Ideas</a></li>
+            <li><a href="submit.html">Submit Idea</a></li>
+            <li><a href="ranking.html">Rankings</a></li>
+            <li><a href="problem.html">Submit A Problem</a></li>
+            <li>
+              <a href="view-problem.html">View Problems That People face</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h4>Community</h4>
+          <ul>
+            <li><a href="report.html">Report a Problem</a></li>
+            <li><a href="feedback.html">Submit Feedback</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="resource.html">Resources</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>
+          © 2025 Ideonix Platform. Built with passion by developers, for
+          developers.
+        </p>
+      </div>
+    </footer>
+
+    <script src="dashboard.js"></script>
+  </body>
+</html>

@@ -1,0 +1,77 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Log In</title>
+    <link rel="stylesheet" href="login.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="vanta-bg"></div>
+
+    <nav class="navbar">
+      <div class="logo">
+        <i class="fas fa-lightbulb"></i> <span>&ensp;Ideonix &ensp;</span>
+      </div>
+      <div class="hamburger" id="hamburger" aria-label="Toggle menu">
+        &#9776;
+      </div>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="explore1.html">Explore Ideas</a></li>
+        <li><a href="aboutus.html">About Us</a></li>
+        <li><a href="signup.html">Sign Up</a></li>
+        <li><a href="login.html">Log In</a></li>
+      </ul>
+    </nav>
+
+    <div class="main-content">
+      <div class="form-container">
+        <h1><i class="fa fa-unlock-alt" aria-hidden="true"></i> Log In</h1>
+        <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
+
+        <input type="email" id="email" placeholder="Email" />
+        <input type="password" id="password" placeholder="Password" />
+        <button id="login-btn">Log In</button>
+
+        <div id="status" style="margin-top: 20px"></div>
+      </div>
+    </div>
+
+    <footer>© 2025 Ideonix. All rights reserved.</footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="login.js"></script>
+
+    <script>
+      document
+        .getElementById("hamburger")
+        .addEventListener("click", function () {
+          document.getElementById("nav-links").classList.toggle("active");
+        });
+      VANTA.WAVES({
+        el: "#vanta-bg",
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.0,
+        minWidth: 200.0,
+        scale: 1.0,
+        scaleMobile: 1.0,
+        color: 0x1e3a8a,
+        shininess: 23.0,
+        waveHeight: 14.0,
+        waveSpeed: 0.75,
+        zoom: 1.05,
+      });
+    </script>
+  </body>
+</html>

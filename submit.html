@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Submit Your Idea</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link rel="stylesheet" href="submit.css" />
+  </head>
+  <body>
+    <nav class="dashboard-navbar">
+      <div class="logo">
+        <i class="fas fa-lightbulb"></i> <span>Ideonix</span>
+        <small> Ideas & Innovation</small>
+      </div>
+      <div class="hamburger" id="hamburger">&#9776;</div>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="dashboard.html"><i class="fas fa-home"></i> Home</a></li>
+        <li class="dropdown">
+          <a href="javascript:void(0)" class="dropdown-toggle">
+            <i class="fas fa-lightbulb"></i> Ideas
+            <i class="fas fa-chevron-down"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="explore.html"><i class="fas fa-search"></i> Explore Ideas</a></li>
+            <li><a href="submit-idea.html"><i class="fas fa-plus-circle"></i> Submit Ideas</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="javascript:void(0)" class="dropdown-toggle">
+            <i class="fas fa-exclamation-triangle"></i> Problems
+            <i class="fas fa-chevron-down"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="problem.html"><i class="fas fa-plus-circle"></i> Submit Problems</a></li>
+            <li><a href="view-problems.html"><i class="fas fa-eye"></i> View Problems</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="javascript:void(0)" class="dropdown-toggle">
+            <i class="fas fa-user-circle"></i> Profile
+            <i class="fas fa-chevron-down"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="user.html"><i class="fas fa-id-badge"></i> Your Profile</a></li>
+            <li><a href="profile.html"><i class="fas fa-users"></i> Others' Profiles</a></li>
+          </ul>
+        </li>
+        <li><a href="ranking.html"><i class="fas fa-trophy"></i> Rankings</a></li>
+        <li class="dropdown">
+          <a href="javascript:void(0)" category="dropdown-toggle">
+            <i class="fas fa-users"></i> Community
+            <i class="fas fa-chevron-down"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="resources.html"><i class="fas fa-book"></i> Resources</a></li>
+            <li><a href="about.html"><i class="fas fa-circle-info"></i> About Us</a></li>
+            <li><a href="report.html"><i class="fas fa-bug"></i> Report a Problem</a></li>
+            <li><a href="feedback.html"><i class="fas fa-comment-dots"></i> Submit Feedback</a></li>
+          </ul>
+        </li>
+        <li>
+          <button class="logout-link" onclick="handleLogout()">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </button>
+        </li>
+      </ul>
+    </nav>
+    <div class="form-wrapper">
+      <form id="publicIdeaForm">
+        <section class="idea-intro">
+          <h2>Why Submit Your Idea?</h2>
+          <p>
+            Ideonix is a collaborative platform where innovators, developers,
+            and change-makers share creative ideas to solve real-world problems.
+            Whether it's a small tweak or a game-changing solution, your idea
+            can inspire action and build a better future.
+          </p>
+        </section>
+        <div class="form-header">
+          <button type="button" class="back-button" onclick="window.location.href='dashboard.html'">
+            ←
+          </button>
+          <div class="header-text">
+            <h1>Submit Your Idea</h1>
+            <p>Share your innovative solution with the community</p>
+          </div>
+        </div>
+        <div class="section-title">
+          <span class="section-icon">💡</span>
+          <h2>New Idea Submission</h2>
+        </div>
+        <label for="title">Idea Title *</label>
+        <input type="text" id="title" required placeholder="Enter a catchy title for your idea..." />
+        <label for="description">Detailed Description *</label>
+        <textarea id="description" rows="8" required placeholder="Provide a comprehensive description of your idea, how it works, and its benefits..."></textarea>
+        <label for="problem">Problem this idea Solves *</label>
+        <input type="text" id="problem" required placeholder="Describe the specific problem your idea addresses..." />
+        <label for="targetAudience">Target Audience *</label>
+        <input type="text" id="targetAudience" required placeholder="Who will benefit the most from this idea? (e.g., students, startups, patients)" />
+        <label for="category">Category *</label>
+        <select id="category" required>
+          <option value="">-- Please select the field --</option>
+          <option value="education">Education</option>
+          <option value="healthcare">Healthcare</option>
+          <option value="finance">Finance</option>
+          <option value="technology">Technology</option>
+          <option value="environment">Environment</option>
+          <option value="other">Other</option>
+        </select>
+        <div id="customCategoryContainer" style="display: none">
+          <label for="customCategory">Custom Category (max 20 chars)</label>
+          <input type="text" id="customCategory" maxlength="20" />
+        </div>
+        <label for="name">Your Name *</label>
+        <input type="text" id="name" placeholder="Please enter your name" />
+        <label for="fileInput">Attach File (optional)(only: .jpg,.jpeg,.png,.pdf,.doc,.docx,.pptx,.txt)</label>
+        <input type="file" id="fileInput" accept=".jpg,.jpeg,.png,.pdf,.doc,.docx,.pptx,.txt" />
+        <div class="form-buttons">
+          <button type="button" class="cancel-button" onclick="window.location.href='dashboard.html'">Cancel</button>
+          <button type="submit" class="submit-button">Submit Idea</button>
+        </div>
+      </form>
+    </div>
+    <footer class="footer">
+      <div class="footer-cta">
+        <h2>Ready to Share Your Next Big Idea?</h2>
+        <p>Join thousands of developers and innovators who are building the future, one idea at a time.</p>
+        <div class="footer-buttons">
+          <a href="explore.html" class="btn btn-primary">+ Explore an Idea</a>
+          <a href="feedback.html" class="btn btn-secondary">Feedback</a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <div class="footer-section">
+          <h3><i class="fas fa-lightbulb"></i> Ideonix</h3>
+          <p>Empowering developers to share ideas, solve problems, and build the future together.</p>
+        </div>
+        <div class="footer-section">
+          <h4>Platform</h4>
+          <ul>
+            <li><a href="explore.html">Explore Ideas</a></li>
+            <li><a href="submit.html">Submit Idea</a></li>
+            <li><a href="ranking.html">Rankings</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="problem.html">Submit A Problem</a></li>
+          </ul>
+        </div>
+        fieldset="Community">
+          <h4>Community</h4>
+          <ul>
+            <li><a href="report.html">Report a Problem</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="resource.html">Resources</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Ideonix Platform. Built with passion by developers, for developers.</p>
+      </div>
+    </footer>
+    <script src="submit.js"></script>
+    <script>
+      document.getElementById("hamburger").addEventListener("click", function() {
+        document.getElementById("nav-links").classList.toggle("active");
+      });
+      if (window.innerWidth <= 768) {
+        document.querySelectorAll(".dropdown-toggle").forEach((toggle) => {
+          toggle.addEventListener("click", function(e) {
+            e.preventDefault();
+            this.parentElement.classList.toggle("active");
+          });
+        });
+      }
+      function handleLogout() {
+        const confirmLogout = confirm("Are you sure you want to logout?");
+        if (confirmLogout) {
+          localStorage.clear();
+          sessionStorage.clear();
+          window.location.href = "login.html";
+        }
+      }
+    </script>
+  </body>
+</html>

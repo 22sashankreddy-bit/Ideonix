@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Sign Up | Ideonix</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="signup.css" />
+    <!-- Font Awesome CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js"></script>
+
+    <!-- 2. SUPABASE Library (MUST come before your script) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <!-- Background -->
+    <div id="vanta-bg"></div>
+    <div class="video-overlay"></div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="logo">
+        <i class="fas fa-lightbulb"></i>
+        <span>&ensp;Ideonix &ensp;</span>
+      </div>
+      <div class="hamburger" id="hamburger">
+        <i class="fas fa-bars"></i>
+      </div>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="aboutus.html">About Us</a></li>
+        <li><a href="explore1.html">Explore Ideas</a></li>
+        <li><a href="signup.html">Sign Up</a></li>
+        <li><a href="login.html">Log In</a></li>
+      </ul>
+    </nav>
+
+    <!-- Main content area to center the form -->
+    <div class="main-content">
+      <!-- Signup Form -->
+      <div class="form-container">
+        <h1>🔐 Sign Up</h1>
+        <p>Already have an account? <a href="login.html">Log in</a></p>
+
+        <form id="signup-form">
+          <input
+            type="text"
+            id="name"
+            placeholder="Your Name"
+            required
+            autocomplete="name"
+          />
+          <input
+            type="email"
+            id="email"
+            placeholder="Email"
+            required
+            autocomplete="email"
+          />
+          <input
+            type="tel"
+            id="number"
+            placeholder="Phone Number"
+            required
+            autocomplete="tel"
+          />
+          <input
+            type="password"
+            id="password"
+            placeholder="Password"
+            required
+            autocomplete="new-password"
+          />
+          <input
+            type="password"
+            id="confirm-password"
+            placeholder="Confirm Password"
+            required
+            autocomplete="new-password"
+          />
+          <button type="button" id="signup-btn">Sign Up</button>
+        </form>
+
+        <div id="status" style="margin-top: 20px"></div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>© 2025 Ideonix. All rights reserved.</footer>
+
+    <!-- Three.js and Vanta.js scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script src="signup.js"></script>
+  </body>
+</html>

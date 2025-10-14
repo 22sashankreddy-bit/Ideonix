@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ideonix - Navbar & Footer</title>
+    <link rel="stylesheet" href="user.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      html,
+      body {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+      }
+
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background: #f9fafb;
+        color: #111827;
+        padding-top: 80px; /* Space for fixed navbar */
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      /* Main content wrapper */
+      .content-wrapper {
+        flex: 1;
+        width: 100%;
+      }
+
+      /* Navbar Styles */
+      .dashboard-navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        background: white;
+        border-bottom: 1px solid #e5e7eb;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 999;
+        box-sizing: border-box;
+      }
+
+      .dashboard-navbar .logo {
+        font-size: 1.3rem;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .dashboard-navbar .logo small {
+        font-size: 0.8rem;
+        color: #6b7280;
+      }
+
+      .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 1.5rem;
+        align-items: center;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: #1f2937;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .nav-links a:hover {
+        color: #6366f1;
+      }
+
+      /* Dropdown Styles */
+      .dropdown {
+        position: relative;
+      }
+
+      .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: white;
+        min-width: 200px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        padding: 0.5rem 0;
+        display: none;
+        z-index: 1000;
+        border: 1px solid #e5e7eb;
+      }
+
+      /* Show dropdown on hover */
+      .dropdown:hover .dropdown-menu {
+        display: block;
+      }
+
+      .dropdown-menu li {
+        width: 100%;
+      }
+
+      .dropdown-menu a {
+        padding: 0.5rem 1rem;
+        display: block;
+        color: #1f2937;
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+      .dropdown-menu a:hover {
+        background-color: #f3f4f6;
+        color: #6366f1;
+      }
+
+      .dropdown-toggle {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .dropdown-toggle i.fa-chevron-down {
+        font-size: 0.8em;
+        margin-left: 4px;
+        transition: transform 0.3s;
+      }
+
+      .dropdown:hover .dropdown-toggle i.fa-chevron-down {
+        transform: rotate(180deg);
+      }
+
+      /* Link hover effect */
+      li a {
+        position: relative;
+        text-decoration: none;
+        color: #333;
+        padding: 5px 0;
+        display: inline-block;
+      }
+
+      li a::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background-color: #007bff;
+        transform: translateX(-50%);
+        transition: width 0.3s ease;
+      }
+
+      li a:hover::after {
+        width: 100%;
+      }
+
+      /* Profile chip */
+      .profile-chip {
+        background: #e0e7ff;
+        padding: 6px 12px;
+        border-radius: 999px;
+        color: #1e3a8a;
+        font-weight: 600;
+      }
+
+      /* Hamburger for mobile */
+      .hamburger {
+        display: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+
+      /* Logout button */
+      .logout-link {
+        background-color: #f87171;
+        color: white;
+        padding: 6px 14px;
+        border: none;
+        border-radius: 999px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .logout-link:hover {
+        background-color: #dc2626;
+        color: white;
+      }
+
+      /* Main Content */
+      .main-content {
+        padding: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      /* Container */
+      .container {
+        padding: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      /* Footer Styles - FULL WIDTH FIX */
+      .footer {
+        background-color: #0f172a;
+        color: #cbd5e1;
+        padding: 40px 20px;
+        font-family: "Segoe UI", sans-serif;
+        text-align: center;
+        width: 100%;
+        margin-top: auto;
+        box-sizing: border-box;
+      }
+
+      .footer-cta h2 {
+        font-size: 1.6rem;
+        color: white;
+        margin-bottom: 8px;
+        font-weight: 700;
+      }
+
+      .footer-cta p {
+        margin-bottom: 20px;
+        color: #94a3b8;
+        font-size: 0.95rem;
+      }
+
+      .footer-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .footer-buttons .btn {
+        padding: 10px 22px;
+        border-radius: 6px;
+        font-weight: 600;
+        text-decoration: none;
+        font-size: 0.95rem;
+        cursor: pointer;
+        display: inline-block;
+        transition: background-color 0.3s ease;
+      }
+
+      .btn-primary {
+        background: linear-gradient(90deg, #2563eb, #10b981);
+        color: white;
+        border: none;
+      }
+
+      .btn-primary:hover {
+        background: linear-gradient(90deg, #10b981, #2563eb);
+      }
+
+      .btn-secondary {
+        background: white;
+        color: #0f172a;
+        border: none;
+      }
+
+      .btn-secondary:hover {
+        background: #e2e8f0;
+      }
+
+      .footer-links {
+        display: flex;
+        justify-content: space-around;
+        margin: 40px auto 20px;
+        flex-wrap: wrap;
+        text-align: left;
+        width: 100%;
+        max-width: 1200px;
+        gap: 30px;
+      }
+
+      .footer-section {
+        flex: 1;
+        min-width: 200px;
+      }
+
+      .footer-section h3,
+      .footer-section h4 {
+        color: white;
+        margin-bottom: 12px;
+      }
+
+      .footer-section p {
+        max-width: 280px;
+        font-size: 0.9rem;
+        color: #94a3b8;
+      }
+
+      .footer-section ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .footer-section ul li {
+        margin-bottom: 8px;
+      }
+
+      .footer-section ul li a {
+        color: #94a3b8;
+        text-decoration: none;
+        font-size: 0.9rem;
+      }
+
+      .footer-section ul li a:hover {
+        color: #2563eb;
+      }
+
+      .footer-bottom {
+        border-top: 1px solid #334155;
+        padding-top: 20px;
+        font-size: 0.85rem;
+        color: #64748b;
+        width: 100%;
+      }
+
+      /* Mobile dropdown styles */
+      @media (max-width: 768px) {
+        .dashboard-navbar {
+          padding: 1rem;
+        }
+
+        .dropdown-menu {
+          position: static;
+          box-shadow: none;
+          width: 100%;
+          background-color: white;
+          padding-left: 1rem;
+          margin-top: 0.5rem;
+          border-radius: 0;
+          border: none;
+          border-top: 1px solid #e5e7eb;
+        }
+
+        .dropdown.active .dropdown-menu {
+          display: block;
+        }
+
+        .dropdown.active .dropdown-toggle i.fa-chevron-down {
+          transform: rotate(180deg);
+        }
+
+        .dropdown-menu a {
+          padding: 0.5rem 0;
+        }
+
+        .nav-links {
+          display: none;
+          position: absolute;
+          top: 70px;
+          right: 20px;
+          flex-direction: column;
+          background-color: white;
+          padding: 1rem;
+          border-radius: 8px;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-links.active {
+          display: flex;
+        }
+
+        .hamburger {
+          display: block;
+        }
+
+        .footer-links {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .footer-section {
+          width: 100%;
+          text-align: center;
+        }
+      }
+
+      /* Modal styles */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+
+      .modal-content {
+        background-color: #fefefe;
+        margin: 10% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 800px;
+        border-radius: 8px;
+        position: relative;
+      }
+
+      .modal-close {
+        color: #aaa;
+        position: absolute;
+        right: 15px;
+        top: 10px;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .modal-close:hover {
+        color: black;
+      }
+
+      .modal-body {
+        padding: 10px 0;
+      }
+
+      .loading {
+        text-align: center;
+        padding: 20px;
+        font-size: 18px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="dashboard-navbar">
+      <div class="logo">
+        <i class="fas fa-lightbulb"></i> <span>Ideonix</span>
+        <small>Ideas & Innovation</small>
+      </div>
+
+      <div class="hamburger" id="hamburger">&#9776;</div>
+
+      <ul class="nav-links" id="nav-links">
+        <!-- Home -->
+        <li>
+          <a href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+        </li>
+
+        <!-- Ideas Dropdown -->
+        <li class="dropdown">
+          <a href="javascript:void(0)" class="dropdown-toggle">
+            <i class="fas fa-lightbulb"></i> Ideas
+            <i class="fas fa-chevron-down"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="explore.html"
+                ><i class="fas fa-search"></i> Explore Ideas</a
+              >
+            </li>
+            <li>
+              <a href="submit.html"
+                ><i class="fas fa-plus-circle"></i> Submit Ideas</a
+              >
+            </li>
+          </ul>
+        </li>
+
+        <!-- Problems Dropdown -->
+        <li class="dropdown">
+          <a href="javascript:void(0)" class="dropdown-toggle">
+            <i class="fas fa-triangle-exclamation"></i> Problems
+            <i class="fas fa-chevron-down"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="problem.html"
+                ><i class="fas fa-plus-circle"></i> Submit Problems</a
+              >
+            </li>
+            <li>
+              <a href="view-problem.html"
+                ><i class="fas fa-eye"></i> View Problems</a
+              >
+            </li>
+          </ul>
+        </li>
+
+        <!-- Profile Dropdown -->
+        <li class="dropdown">
+          <a href="javascript:void(0)" class="dropdown-toggle">
+            <i class="fas fa-user-circle"></i> Profile
+            <i class="fas fa-chevron-down"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="user.html"
+                ><i class="fas fa-id-badge"></i> Your Profile</a
+              >
+            </li>
+            <li>
+              <a href="profile.html"
+                ><i class="fas fa-users"></i> Others' Profiles</a
+              >
+            </li>
+          </ul>
+        </li>
+
+        <!-- Rankings -->
+        <li>
+          <a href="ranking.html"><i class="fas fa-trophy"></i> Rankings</a>
+        </li>
+
+        <!-- Community Dropdown -->
+        <li class="dropdown">
+          <a href="javascript:void(0)" class="dropdown-toggle">
+            <i class="fas fa-users"></i> Community
+            <i class="fas fa-chevron-down"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="resource.html"><i class="fas fa-book"></i> Resources</a>
+            </li>
+            <li>
+              <a href="about.html"
+                ><i class="fas fa-circle-info"></i> About Us</a
+              >
+            </li>
+            <li>
+              <a href="report.html"
+                ><i class="fas fa-bug"></i> Report a Problem</a
+              >
+            </li>
+            <li>
+              <a href="feedback.html"
+                ><i class="fas fa-comment-dots"></i> Feedback</a
+              >
+            </li>
+          </ul>
+        </li>
+
+        <!-- Logout -->
+        <li>
+          <button class="logout-link" onclick="handleLogout()">
+            <i class="fas fa-right-from-bracket"></i> Logout
+          </button>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Main Content Wrapper -->
+    <div class="content-wrapper">
+      <!-- Main Content (just for demonstration) -->
+      <div class="container">
+        <h1>Profile</h1>
+
+        <div id="profileContent">
+          <div class="loading">Loading your profile...</div>
+        </div>
+      </div>
+
+      <!-- Modal for idea details -->
+      <div id="ideaModal" class="modal">
+        <div class="modal-content">
+          <span class="modal-close" onclick="closeModal('ideaModal')"
+            >&times;</span
+          >
+          <div id="ideaModalBody" class="modal-body">
+            <!-- Modal content will be inserted here -->
+          </div>
+        </div>
+      </div>
+      <div id="collaborations-tab" class="tab-content">
+        <div class="collaboration-subtabs">
+            <div class="collab-subtab active" onclick="switchCollabTab('sent')">Sent Requests</div>
+            <div class="collab-subtab" onclick="switchCollabTab('received')">Received Requests</div>
+        </div>
+        
+        <div id="sent-requests" class="collab-subtab-content active">
+            <!-- Sent requests will be loaded here -->
+        </div>
+        
+        <div id="received-requests" class="collab-subtab-content">
+            <!-- Received requests will be loaded here -->
+        </div>
+    </div>
+
+      <!-- Modal for problem details -->
+      <div id="problemModal" class="modal">
+        <div class="modal-content">
+          <span class="modal-close" onclick="closeModal('problemModal')"
+            >&times;</span
+          >
+          <div id="problemModalBody" class="modal-body">
+            <!-- Modal content will be inserted here -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Include Supabase library -->
+      <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+      <!-- Include JavaScript file -->
+      <script src="user.js" type="module"></script>
+    </div>
+    <!-- Edit Idea Modal -->
+    <div id="editIdeaModal" class="edit-modal">
+      <div class="edit-modal-content">
+        <div class="edit-modal-header">
+          <h2>Edit Idea</h2>
+          <button class="edit-modal-close" onclick="closeEditIdeaModal()">
+            &times;
+          </button>
+        </div>
+        <div id="editIdeaFormContainer">
+          <!-- Form will be dynamically inserted here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Problem Modal -->
+    <div id="editProblemModal" class="edit-modal">
+      <div class="edit-modal-content">
+        <div class="edit-modal-header">
+          <h2>Edit Problem</h2>
+          <button class="edit-modal-close" onclick="closeEditProblemModal()">
+            &times;
+          </button>
+        </div>
+        <div id="editProblemFormContainer">
+          <!-- Form will be dynamically inserted here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-cta">
+        <h2>Ready to Share Your Next Big Idea?</h2>
+        <p>
+          Join thousands of developers and innovators who are building the
+          future, one idea at a time.
+        </p>
+        <div class="footer-buttons">
+          <a href="submit.html" class="btn btn-primary">+ Submit an Idea</a>
+          <a href="feedback.html" class="btn btn-secondary">Feedback</a>
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <div class="footer-section">
+          <h3><i class="fas fa-lightbulb"></i>Ideonix</h3>
+          <p>
+            Empowering developers to share ideas, solve problems, and build the
+            future together.
+          </p>
+        </div>
+
+        <div class="footer-section">
+          <h4>Platform</h4>
+          <ul>
+            <li><a href="explore.html">Explore Ideas</a></li>
+            <li><a href="submit.html">Submit Idea</a></li>
+            <li><a href="ranking.html">Rankings</a></li>
+            <li><a href="problem.html">Submit A Problem</a></li>
+            <li>
+              <a href="view-problem.html">View Problems That People face</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h4>Community</h4>
+          <ul>
+            <li><a href="report.html">Report a Problem</a></li>
+            <li><a href="feedback.html">Submit Feedback</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="resource.html">Resources</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>
+          © 2025 Ideonix Platform. Built with passion by developers, for
+          developers.
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      // Mobile menu toggle
+      document
+        .getElementById("hamburger")
+        .addEventListener("click", function () {
+          document.getElementById("nav-links").classList.toggle("active");
+        });
+
+      // For mobile dropdowns
+      document.querySelectorAll(".dropdown-toggle").forEach((item) => {
+        item.addEventListener("click", function (e) {
+          if (window.innerWidth <= 768) {
+            e.preventDefault();
+            this.parentElement.classList.toggle("active");
+          }
+        });
+      });
+
+      function handleLogout() {
+        // Add your logout logic here
+        window.location.href = "login.html";
+      }
+
+      // Close mobile menu when clicking outside
+      document.addEventListener("click", function (event) {
+        const nav = document.getElementById("nav-links");
+        const hamburger = document.getElementById("hamburger");
+
+        if (!nav.contains(event.target) && !hamburger.contains(event.target)) {
+          nav.classList.remove("active");
+        }
+      });
+
+      // Modal functions
+      function closeModal(modalId) {
+        document.getElementById(modalId).style.display = "none";
+      }
+    </script>
+  </body>
+</html>

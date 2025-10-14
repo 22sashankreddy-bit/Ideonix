@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us - Ideonix</title>
+    <link rel="stylesheet" href="dashboard.css" />
+    <link rel="stylesheet" href="about.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav class="dashboard-navbar">
+      <div class="logo">
+        <i class="fas fa-lightbulb"></i> <span>Ideonix</span>
+        <small>Ideas & Innovation</small>
+      </div>
+
+      <div class="hamburger" id="hamburger">&#9776;</div>
+
+      <ul class="nav-links" id="nav-links">
+        <li>
+          <a href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+        </li>
+
+        <li class="dropdown">
+          <a href="javascript:void(0)" class="dropdown-toggle">
+            <i class="fas fa-lightbulb"></i> Ideas
+            <i class="fas fa-chevron-down"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="explore.html"
+                ><i class="fas fa-search"></i> Explore Ideas</a
+              >
+            </li>
+            <li>
+              <a href="submit.html"
+                ><i class="fas fa-plus-circle"></i> Submit Ideas</a
+              >
+            </li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a href="javascript:void(0)" class="dropdown-toggle">
+            <i class="fas fa-triangle-exclamation"></i> Problems
+            <i class="fas fa-chevron-down"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="problem.html"
+                ><i class="fas fa-plus-circle"></i> Submit Problems</a
+              >
+            </li>
+            <li>
+              <a href="view-problem.html"
+                ><i class="fas fa-eye"></i> View Problems</a
+              >
+            </li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a href="javascript:void(0)" class="dropdown-toggle">
+            <i class="fas fa-user-circle"></i> Profile
+            <i class="fas fa-chevron-down"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="user.html"
+                ><i class="fas fa-id-badge"></i> Your Profile</a
+              >
+            </li>
+            <li>
+              <a href="profile.html"
+                ><i class="fas fa-users"></i> Others’ Profiles</a
+              >
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="ranking.html"><i class="fas fa-trophy"></i> Rankings</a>
+        </li>
+
+        <li class="dropdown">
+          <a href="javascript:void(0)" class="dropdown-toggle">
+            <i class="fas fa-users"></i> Community
+            <i class="fas fa-chevron-down"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="resource.html"><i class="fas fa-book"></i> Resources</a>
+            </li>
+            <li>
+              <a href="about.html"
+                ><i class="fas fa-circle-info"></i> About Us</a
+              >
+            </li>
+            <li>
+              <a href="report.html"
+                ><i class="fas fa-bug"></i> Report a Problem</a
+              >
+            </li>
+            <li>
+              <a href="feedback.html"
+                ><i class="fas fa-comment-dots"></i> Feedback</a
+              >
+            </li>
+            <li>
+              <a href="quiz.html"
+                ><i class="fas fa-question-circle"></i> Quiz</a
+              >
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <button class="logout-link" onclick="handleLogout()">
+            <i class="fas fa-right-from-bracket"></i> Logout
+          </button>
+        </li>
+      </ul>
+    </nav>
+
+    <section class="about-hero">
+      <h1>Empowering Young Innovators</h1>
+      <p>
+        Ideonix is a platform where kid entrepreneurs can share their ideas,
+        collaborate with peers, and bring their innovations to life.
+      </p>
+      <div class="cta-buttons">
+        <button
+          class="btn primary"
+          onclick="window.location.href='submit.html';"
+        >
+          Share Your Idea <i class="fas fa-arrow-right"></i>
+        </button>
+        <button
+          class="btn secondary"
+          onclick="window.location.href='explore.html';"
+        >
+          Explore Ideas
+        </button>
+      </div>
+    </section>
+
+    <section class="about-section">
+      <h2>Our Story</h2>
+      <p>
+        Ideonix was born from a simple belief: kids have some of the most
+        creative and innovative ideas, but they often lack a platform to share
+        and develop them. We created Ideonix to be that platform - a safe,
+        inspiring space where young minds can turn their ideas into reality.
+      </p>
+
+      <div class="about-grid">
+        <div class="about-card">
+          <i class="fas fa-rocket"></i>
+          <h3>Our Mission</h3>
+          <p>
+            To foster creativity and entrepreneurship in children by providing a
+            platform where they can share ideas, receive feedback, and
+            collaborate with peers and mentors.
+          </p>
+        </div>
+        <div class="about-card">
+          <i class="fas fa-eye"></i>
+          <h3>Our Vision</h3>
+          <p>
+            A world where every child has the opportunity to innovate, create,
+            and turn their dreams into reality, regardless of their age or
+            background.
+          </p>
+        </div>
+        <div class="about-card">
+          <i class="fas fa-heart"></i>
+          <h3>Our Values</h3>
+          <p>
+            Creativity, Collaboration, Inclusivity, and Empowerment. We believe
+            every child has unique potential that deserves to be nurtured.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="team-section">
+      <div class="team-container">
+        <h2>Meet Our Team</h2>
+        <p>
+          We're a passionate team of educators, developers, and entrepreneurs
+          dedicated to empowering the next generation of innovators.
+        </p>
+
+        <div class="team-grid">
+          <div class="team-member">
+            <img src="Naitik.jpg" alt="Naitik" />
+            <h4>Naitik</h4>
+            <p>Frontend developer</p>
+          </div>
+          <div class="team-member">
+            <img src="sashank.jpg" alt="Sashank" />
+            <h4>Sashank</h4>
+            <p>Backend developer</p>
+          </div>
+          <div class="team-member">
+            <img src="Narmad.jpg" alt="Narmad" />
+            <h4>Narmad</h4>
+            <p>Lead Designer</p>
+          </div>
+          <div class="team-member">
+            <img src="Dhana.jpg" alt="Dhanvantari" />
+            <h4>Dhanvantari</h4>
+            <p>Testing manager</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats-section">
+      <div class="stats-container">
+        <div class="stat-item">
+          <h3 data-target="5000">0</h3>
+          <p>Young Innovators</p>
+        </div>
+        <div class="stat-item">
+          <h3 data-target="1200">0</h3>
+          <p>Ideas Shared</p>
+        </div>
+        <div class="stat-item">
+          <h3 data-target="300">0</h3>
+          <p>Projects Developed</p>
+        </div>
+        <div class="stat-item">
+          <h3 data-target="25">0</h3>
+          <p>Partner Schools</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <div class="cta-container">
+        <h2>Ready to Join Our Community?</h2>
+        <p>
+          Become part of a growing network of young entrepreneurs and
+          innovators. Share your ideas, get feedback, and bring your dreams to
+          life.
+        </p>
+        <a href="submit.html" class="btn-large btn-primary">Submit Ideas</a>
+        <a href="explore.html" class="btn-large btn-primary">Explore Ideas</a>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-cta">
+        <h2>Ready to Share Your Next Big Idea?</h2>
+        <p>
+          Join thousands of young innovators who are building the future, one
+          idea at a time.
+        </p>
+        <div class="footer-buttons">
+          <a href="submit.html" class="btn btn-primary">+ Submit an Idea</a>
+          <a href="feedback.html" class="btn btn-secondary">Feedback</a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <div class="footer-section">
+          <h3><i class="fas fa-lightbulb"></i> Ideonix</h3>
+          <p>
+            Empowering young entrepreneurs to share ideas, solve problems, and
+            build the future together.
+          </p>
+        </div>
+        <div class="footer-section">
+          <h4>Platform</h4>
+          <ul>
+            <li><a href="explore.html">Explore Ideas</a></li>
+            <li><a href="submit.html">Submit Idea</a></li>
+            <li><a href="ranking.html">Rankings</a></li>
+            <li><a href="problem.html">Submit A Problem</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Community</h4>
+          <ul>
+            <li><a href="report.html">Report a Problem</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="resource.html">Resources</a></li>
+            <li><a href="events.html">Events</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Ideonix Platform. Built with passion for young innovators.</p>
+      </div>
+    </footer>
+
+    <script src="dashboard.js"></script>
+    <script src="about.js"></script>
+  </body>
+</html>
