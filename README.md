@@ -1,5 +1,5 @@
 # Ideonix
-https://22sashankreddy-bit.github.io/Ideonix
+https://22sashankreddy-bit.github.io/Ideonix.
 
 
 About Ideonix
